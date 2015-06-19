@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C6018B01B34A0B200C49BC6 /* test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C6018AF1B34A0B200C49BC6 /* test.mp3 */; };
 		9CA2F7ED1B346876006E16CA /* sirenpolice2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9CA2F7EC1B346876006E16CA /* sirenpolice2.wav */; };
 		9CAEBD9D1B346AA700F683DC /* parkuhr.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9CAEBD9C1B346AA700F683DC /* parkuhr.mp3 */; };
 		BF52C0A41AEFE4700042F9E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C6018AF1B34A0B200C49BC6 /* test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = test.mp3; sourceTree = "<group>"; };
 		9CA2F7EC1B346876006E16CA /* sirenpolice2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sirenpolice2.wav; sourceTree = SOURCE_ROOT; };
 		9CAEBD9C1B346AA700F683DC /* parkuhr.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = parkuhr.mp3; sourceTree = "<group>"; };
 		BF52C09E1AEFE4700042F9E8 /* ConnectedColors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConnectedColors.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +99,7 @@
 		BF52C0A11AEFE4700042F9E8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9C6018AF1B34A0B200C49BC6 /* test.mp3 */,
 				9CAEBD9C1B346AA700F683DC /* parkuhr.mp3 */,
 				9CA2F7EC1B346876006E16CA /* sirenpolice2.wav */,
 				BF52C0A21AEFE4700042F9E8 /* Info.plist */,
@@ -203,6 +206,7 @@
 			files = (
 				9CAEBD9D1B346AA700F683DC /* parkuhr.mp3 in Resources */,
 				BF52C0A91AEFE4700042F9E8 /* Main.storyboard in Resources */,
+				9C6018B01B34A0B200C49BC6 /* test.mp3 in Resources */,
 				BF52C0AE1AEFE4700042F9E8 /* LaunchScreen.xib in Resources */,
 				BF52C0AB1AEFE4700042F9E8 /* Images.xcassets in Resources */,
 				9CA2F7ED1B346876006E16CA /* sirenpolice2.wav in Resources */,

@@ -13,6 +13,8 @@ protocol ColorServiceManagerDelegate {
     
     func connectedDevicesChanged(manager : ColorServiceManager, connectedDevices: [String])
     func colorChanged(manager : ColorServiceManager, colorString: String)
+    func playFile(manager : ColorServiceManager, data: NSData)
+
     
 }
 
@@ -48,13 +50,23 @@ class ColorServiceManager : NSObject {
         session?.delegate = self
         return session
     }()
+    
+    func setupAudioPlayerWithFile(file:NSString, type:NSString) -> NSData {
+        var path = NSBundle.mainBundle().pathForResource(file as String, ofType: type as String)
+        var url = NSURL.fileURLWithPath(path!)
+        
+        var audioData: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData;
+        
+        return audioData!;
+        
+    }
 
     func sendColor(colorName : String) {
         NSLog("%@", "sendColor: \(colorName)")
         
         if session.connectedPeers.count > 0 {
             var error : NSError?
-            if !self.session.sendData(colorName.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false), toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error) {
+            if !self.session.sendData(setupAudioPlayerWithFile("test", type:"mp3"), toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error) {
                 NSLog("%@", "\(error)")
             }
         }
@@ -117,8 +129,10 @@ extension ColorServiceManager : MCSessionDelegate {
     
     func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!) {
         NSLog("%@", "didReceiveData: \(data.length) bytes")
-        let str = NSString(data: data, encoding: NSUTF8StringEncoding) as String
-        self.delegate?.colorChanged(self, colorString: str)
+                
+        //let str = NSString(data: data, encoding: NSUTF8StringEncoding) as String
+        //self.delegate?.colorChanged(self, colorString: str)
+        self.delegate?.playFile(self, data: data)
     }
     
     func session(session: MCSession!, didReceiveStream stream: NSInputStream!, withName streamName: String!, fromPeer peerID: MCPeerID!) {
