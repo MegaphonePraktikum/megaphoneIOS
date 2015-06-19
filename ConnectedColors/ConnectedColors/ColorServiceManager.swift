@@ -117,7 +117,7 @@ extension ColorServiceManager : MCSessionDelegate {
     
     func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!) {
         NSLog("%@", "didReceiveData: \(data.length) bytes")
-        let str = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+        let str = NSString(data: data, encoding: NSUTF8StringEncoding) as String
         self.delegate?.colorChanged(self, colorString: str)
     }
     

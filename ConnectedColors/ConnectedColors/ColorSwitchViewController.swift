@@ -19,7 +19,7 @@ class ColorSwitchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         colorService.delegate = self
-        buttonBeep = self.setupAudioPlayerWithFile("sirenpolice2", type:"wav")
+        buttonBeep = self.setupAudioPlayerWithFile("parkuhr", type:"mp3")
     }
 
     @IBAction func redTapped(sender: AnyObject) {
