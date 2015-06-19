@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84774F061B34609000F98DC4 /* sirenpolice2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84774F051B34609000F98DC4 /* sirenpolice2.wav */; };
 		BF52C0A41AEFE4700042F9E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */; };
 		BF52C0A61AEFE4700042F9E8 /* ColorSwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52C0A51AEFE4700042F9E8 /* ColorSwitchViewController.swift */; };
 		BF52C0A91AEFE4700042F9E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF52C0A71AEFE4700042F9E8 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		84774F051B34609000F98DC4 /* sirenpolice2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sirenpolice2.wav; path = ../../../sirenpolice2.wav; sourceTree = "<group>"; };
 		BF52C09E1AEFE4700042F9E8 /* ConnectedColors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConnectedColors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF52C0A21AEFE4700042F9E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		BF52C0A11AEFE4700042F9E8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84774F051B34609000F98DC4 /* sirenpolice2.wav */,
 				BF52C0A21AEFE4700042F9E8 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -198,6 +201,7 @@
 				BF52C0A91AEFE4700042F9E8 /* Main.storyboard in Resources */,
 				BF52C0AE1AEFE4700042F9E8 /* LaunchScreen.xib in Resources */,
 				BF52C0AB1AEFE4700042F9E8 /* Images.xcassets in Resources */,
+				84774F061B34609000F98DC4 /* sirenpolice2.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +417,7 @@
 				BF52C0BF1AEFE4700042F9E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BF52C0C01AEFE4700042F9E8 /* Build configuration list for PBXNativeTarget "ConnectedColorsTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +426,7 @@
 				BF52C0C21AEFE4700042F9E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
