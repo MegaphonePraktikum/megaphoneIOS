@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ycg-LQ-0SA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ycg-LQ-0SA">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -43,13 +43,52 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pji-Bm-TA5">
+                                <rect key="frame" x="25" y="222" width="50" height="30"/>
+                                <state key="normal" title="Record">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="record:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="ZeX-wr-CBO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pzC-fO-hxd">
+                                <rect key="frame" x="208" y="222" width="30" height="30"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="play:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="Nmg-VW-s9D"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qL6-AS-ePo">
+                                <rect key="frame" x="25" y="302" width="43" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lzP-gl-2a5">
+                                <rect key="frame" x="125" y="222" width="33" height="30"/>
+                                <state key="normal" title="Stop">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="stop:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="al7-tS-XIP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="qL6-AS-ePo" firstAttribute="leading" secondItem="pji-Bm-TA5" secondAttribute="leading" id="ADR-Xy-yld"/>
                             <constraint firstItem="YJk-2a-R1e" firstAttribute="top" secondItem="7jZ-Oe-uuY" secondAttribute="bottom" constant="20" id="Fk7-rB-1Fe"/>
                             <constraint firstItem="nhX-fe-hZU" firstAttribute="leading" secondItem="YJk-2a-R1e" secondAttribute="trailing" constant="8" id="OB3-Q2-pPI"/>
                             <constraint firstItem="7jZ-Oe-uuY" firstAttribute="top" secondItem="QIl-vK-9Or" secondAttribute="bottom" constant="20" id="Pd8-mG-7XI"/>
+                            <constraint firstItem="lzP-gl-2a5" firstAttribute="leading" secondItem="pji-Bm-TA5" secondAttribute="trailing" constant="50" id="VRF-3o-rlz"/>
+                            <constraint firstItem="qL6-AS-ePo" firstAttribute="top" secondItem="pji-Bm-TA5" secondAttribute="bottom" constant="50" id="W91-ev-9d9"/>
+                            <constraint firstItem="pzC-fO-hxd" firstAttribute="leading" secondItem="lzP-gl-2a5" secondAttribute="trailing" constant="50" id="kUO-0D-Iy5"/>
                             <constraint firstItem="7jZ-Oe-uuY" firstAttribute="trailing" secondItem="8I6-do-OJY" secondAttribute="trailingMargin" id="knQ-IQ-OS1"/>
+                            <constraint firstItem="lzP-gl-2a5" firstAttribute="top" secondItem="pzC-fO-hxd" secondAttribute="top" id="krg-a3-fJb"/>
+                            <constraint firstItem="pji-Bm-TA5" firstAttribute="top" secondItem="lzP-gl-2a5" secondAttribute="top" id="rch-xJ-Y2p"/>
                             <constraint firstItem="YJk-2a-R1e" firstAttribute="leading" secondItem="8I6-do-OJY" secondAttribute="leadingMargin" id="txK-Hr-74u"/>
                             <constraint firstItem="nhX-fe-hZU" firstAttribute="baseline" secondItem="YJk-2a-R1e" secondAttribute="baseline" id="wNZ-4x-fEx"/>
                             <constraint firstItem="7jZ-Oe-uuY" firstAttribute="leading" secondItem="8I6-do-OJY" secondAttribute="leadingMargin" id="xVX-ge-Tdv"/>
@@ -59,6 +98,10 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="connectionsLabel" destination="7jZ-Oe-uuY" id="SVy-L4-G9S"/>
+                        <outlet property="playButton" destination="pzC-fO-hxd" id="BZM-RV-1Gm"/>
+                        <outlet property="recordButton" destination="pji-Bm-TA5" id="4vK-Pm-Ib0"/>
+                        <outlet property="statusLabel" destination="qL6-AS-ePo" id="n7C-pg-9uN"/>
+                        <outlet property="stopButton" destination="lzP-gl-2a5" id="d1N-Jx-8JJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UW0-hb-LNu" sceneMemberID="firstResponder"/>
