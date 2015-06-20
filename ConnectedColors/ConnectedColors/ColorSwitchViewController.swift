@@ -68,10 +68,10 @@ extension ColorSwitchViewController : ColorServiceManagerDelegate {
         NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
             switch colorString {
             case "red":
-                //self.changeColor(UIColor.redColor())
+                self.changeColor(UIColor.redColor())
                 self.buttonBeep.play()
             case "yellow":
-                //self.changeColor(UIColor.yellowColor())
+                self.changeColor(UIColor.yellowColor())
                 self.buttonBeep.play()
             default:
                 NSLog("%@", "Unknown color value received: \(colorString)")
