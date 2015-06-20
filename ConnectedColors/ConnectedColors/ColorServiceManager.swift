@@ -46,19 +46,30 @@ class ColorServiceManager : NSObject {
     }
     
     lazy var session: MCSession = {
-        let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
+        let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.None)
         session?.delegate = self
         return session
     }()
     
-    func setupAudioPlayerWithFile(file:NSString, type:NSString) -> NSData {
+    func setupAudioPlayerWithFile(soundFileURL : NSURL) -> NSData {
+        //var path = NSBundle.mainBundle().pathForResource(file as String, ofType: type as String)
+        //var url = NSURL.fileURLWithPath(path!)
+        
+        NSLog("%@", "Path: \(soundFileURL)");
+        
+        var audioData: NSData? = NSData(contentsOfURL: soundFileURL)
+        return audioData!;
+        
+    }
+    
+    func setup2(file : String, type : String) -> NSData {
         var path = NSBundle.mainBundle().pathForResource(file as String, ofType: type as String)
         var url = NSURL.fileURLWithPath(path!)
         
-        var audioData: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData;
+        NSLog("%@", "Path: \(file)");
         
+        var audioData: NSData? = NSData(contentsOfURL: url!)
         return audioData!;
-        
     }
 
     func sendColor(colorName : String) {
@@ -66,12 +77,25 @@ class ColorServiceManager : NSObject {
         
         if session.connectedPeers.count > 0 {
             var error : NSError?
-            if !self.session.sendData(setupAudioPlayerWithFile("test", type:"mp3"), toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error) {
+            if !self.session.sendData(setup2("test", type:"mp3"), toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error) {
                 NSLog("%@", "\(error)")
             }
         }
 
     }
+    
+    func sendFile(soundFileURL : NSURL) {
+        NSLog("%@", "sendColor: \(soundFileURL)")
+        
+        if session.connectedPeers.count > 0 {
+            var error : NSError?
+            if !self.session.sendData( setupAudioPlayerWithFile(soundFileURL), toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error) {
+                NSLog("%@", "\(error)")
+            }
+        }
+        
+    }
+
     
 }
 
