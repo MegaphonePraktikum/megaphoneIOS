@@ -168,9 +168,9 @@ class ColorSwitchViewController: UIViewController {
         var dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         var docsDir: AnyObject = dirPaths[0]
         soundFilePath = docsDir.stringByAppendingPathComponent(currentFileName)
-        soundFileURL = NSURL(fileURLWithPath: soundFilePath!)
+        soundFileURL = NSURL(fileURLWithPath: soundFilePath! as String)
         let filemanager = NSFileManager.defaultManager()
-        if filemanager.fileExistsAtPath(soundFilePath!) {
+        if filemanager.fileExistsAtPath(soundFilePath! as String) {
             // probably won't happen. want to do something about it?
             println("sound exists")
         }
@@ -368,6 +368,12 @@ class ColorSwitchViewController: UIViewController {
 extension ColorSwitchViewController : ColorServiceManagerDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     func connectedDevicesChanged(manager: ColorServiceManager, connectedDevices: [String]) {
+        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
+            self.connectionsLabel.text = "Connections: \(connectedDevices)"
+        }
+    }
+    
+    func pingChanged(manager: ColorServiceManager, connectedDevices: [String]) {
         NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
             self.connectionsLabel.text = "Connections: \(connectedDevices)"
         }

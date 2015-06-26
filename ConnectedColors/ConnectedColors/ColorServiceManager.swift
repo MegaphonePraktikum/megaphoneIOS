@@ -12,6 +12,7 @@ import MultipeerConnectivity
 protocol ColorServiceManagerDelegate {
     
     func connectedDevicesChanged(manager : ColorServiceManager, connectedDevices: [String])
+    func pingChanged(manager : ColorServiceManager, connectedDevices: [String])
     func colorChanged(manager : ColorServiceManager, colorString: String)
     func playFile(manager : ColorServiceManager, data: NSData)
 
@@ -24,12 +25,15 @@ class ColorServiceManager : NSObject {
     private let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
     private let serviceAdvertiser : MCNearbyServiceAdvertiser
     private let serviceBrowser : MCNearbyServiceBrowser
+    private let pingData : NSMutableDictionary
     var delegate : ColorServiceManagerDelegate?
     
     override init() {
         self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: ColorServiceType)
 
         self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: ColorServiceType)
+        
+        self.pingData = NSMutableDictionary()
 
         super.init()
         
@@ -95,6 +99,40 @@ class ColorServiceManager : NSObject {
         }
         
     }
+    
+    func sendPing(peerID : MCPeerID) {
+        NSLog("%@", "trySendPingTo: \(peerID)")
+        
+        var data : NSData! = "ping".dataUsingEncoding(NSUTF8StringEncoding)
+        
+        if session.connectedPeers.count > 0 {
+            var error : NSError?
+            if self.session.sendData( data, toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error) {
+                NSLog("%@", "sentPingTo: \(peerID)")
+                var peerData = pingData[peerID] as! NSMutableDictionary;
+                peerData["pingSent"] = NSDate.timeIntervalSinceReferenceDate();
+            }else{
+                NSLog("%@", "\(error)")
+            }
+        }
+        
+    }
+    
+    func sendPong(peerID : MCPeerID) {
+        NSLog("%@", "trySendPongTo: \(peerID)")
+        
+        var data : NSData! = "pong".dataUsingEncoding(NSUTF8StringEncoding)
+        
+        if session.connectedPeers.count > 0 {
+            var error : NSError?
+            if self.session.sendData( data, toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error) {
+                NSLog("%@", "sentPongTo: \(peerID)")
+            }else{
+                NSLog("%@", "\(error)")
+            }
+        }
+        
+    }
 
     
 }
@@ -147,16 +185,47 @@ extension MCSessionState {
 extension ColorServiceManager : MCSessionDelegate {
     
     func session(session: MCSession!, peer peerID: MCPeerID!, didChangeState state: MCSessionState) {
-        NSLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
+        var str = state.stringValue();
+        NSLog("%@", "peer \(peerID) didChangeState: \(str)")
+        if(str=="Connected"){
+            pingData[peerID] = NSMutableDictionary();
+            sendPing(peerID)
+        }else if(str=="NotConnected"){
+            pingData.removeObjectForKey(peerID);
+        }
         self.delegate?.connectedDevicesChanged(self, connectedDevices: session.connectedPeers.map({$0.displayName}))
     }
     
     func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!) {
         NSLog("%@", "didReceiveData: \(data.length) bytes")
                 
-        //let str = NSString(data: data, encoding: NSUTF8StringEncoding) as String
-        //self.delegate?.colorChanged(self, colorString: str)
-        self.delegate?.playFile(self, data: data)
+        let str = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+        if (str=="ping"){
+            sendPong(peerID)
+        }else if(str=="pong"){
+            var peerData = pingData[peerID] as! NSMutableDictionary;
+            var pongReceived = NSDate.timeIntervalSinceReferenceDate();
+            var pingSent = peerData["pingSent"]!.doubleValue as NSTimeInterval
+            var latency = pongReceived - pingSent;
+            peerData["latency"] = latency;
+            peerData.removeObjectForKey("pingSent");
+            
+            NSLog("%@", "didCalculatePing: \(peerID) , \(latency * 1000.0)ms")
+            var devicesAndPing : [String] = []
+            for item in session.connectedPeers{
+                if let ping = pingData[item as! MCPeerID] as? NSMutableDictionary{
+                    var latency = Int(ping["latency"]!.doubleValue * 1000.0);
+                    devicesAndPing.append("\(item.displayName) \(latency)ms")
+                }else{
+                    devicesAndPing.append(item.displayName)
+                }
+            }
+            self.delegate?.pingChanged(self, connectedDevices: devicesAndPing)
+        }else{
+            //self.delegate?.colorChanged(self, colorString: str)
+            self.delegate?.playFile(self, data: data)
+        }
+        
     }
     
     func session(session: MCSession!, didReceiveStream stream: NSInputStream!, withName streamName: String!, fromPeer peerID: MCPeerID!) {
