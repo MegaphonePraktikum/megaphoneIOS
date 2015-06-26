@@ -198,34 +198,39 @@ extension ColorServiceManager : MCSessionDelegate {
     
     func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!) {
         NSLog("%@", "didReceiveData: \(data.length) bytes")
+        
+        if(data.length < 8){
+            let str = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+            if (str=="ping"){
+                sendPong(peerID)
+            }else if(str=="pong"){
+                var peerData = pingData[peerID] as! NSMutableDictionary;
+                var pongReceived = NSDate.timeIntervalSinceReferenceDate();
+                var pingSent = peerData["pingSent"]!.doubleValue as NSTimeInterval
+                var latency = pongReceived - pingSent;
+                peerData["latency"] = latency;
+                peerData.removeObjectForKey("pingSent");
                 
-        let str = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
-        if (str=="ping"){
-            sendPong(peerID)
-        }else if(str=="pong"){
-            var peerData = pingData[peerID] as! NSMutableDictionary;
-            var pongReceived = NSDate.timeIntervalSinceReferenceDate();
-            var pingSent = peerData["pingSent"]!.doubleValue as NSTimeInterval
-            var latency = pongReceived - pingSent;
-            peerData["latency"] = latency;
-            peerData.removeObjectForKey("pingSent");
-            
-            NSLog("%@", "didCalculatePing: \(peerID) , \(latency * 1000.0)ms")
-            var devicesAndPing : [String] = []
-            for item in session.connectedPeers{
-                if let ping = pingData[item as! MCPeerID] as? NSMutableDictionary{
-                    var latency = Int(ping["latency"]!.doubleValue * 1000.0);
-                    devicesAndPing.append("\(item.displayName) \(latency)ms")
-                }else{
-                    devicesAndPing.append(item.displayName)
+                NSLog("%@", "didCalculatePing: \(peerID) , \(latency * 1000.0)ms")
+                var devicesAndPing : [String] = []
+                for item in session.connectedPeers{
+                    if let ping = pingData[item as! MCPeerID] as? NSMutableDictionary{
+                        var latency = Int(ping["latency"]!.doubleValue * 1000.0);
+                        devicesAndPing.append("\(item.displayName) \(latency)ms")
+                    }else{
+                        devicesAndPing.append(item.displayName)
+                    }
                 }
+                NSLog("%@", "changePing")
+                self.delegate?.pingChanged(self, connectedDevices: devicesAndPing)
+            }else{
+                
             }
-            NSLog("%@", "changePing")
-            self.delegate?.pingChanged(self, connectedDevices: devicesAndPing)
         }else{
             //self.delegate?.colorChanged(self, colorString: str)
             self.delegate?.playFile(self, data: data)
         }
+        
         
     }
     
