@@ -377,6 +377,7 @@ extension ColorSwitchViewController : ColorServiceManagerDelegate, AVAudioRecord
         NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
             self.connectionsLabel.text = "Connections: \(connectedDevices)"
         }
+        NSLog("%@", "pingChanged")
     }
     
     func playFile(manager: ColorServiceManager, data: NSData) {

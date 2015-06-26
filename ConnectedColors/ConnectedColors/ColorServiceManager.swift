@@ -220,6 +220,7 @@ extension ColorServiceManager : MCSessionDelegate {
                     devicesAndPing.append(item.displayName)
                 }
             }
+            NSLog("%@", "changePing")
             self.delegate?.pingChanged(self, connectedDevices: devicesAndPing)
         }else{
             //self.delegate?.colorChanged(self, colorString: str)
