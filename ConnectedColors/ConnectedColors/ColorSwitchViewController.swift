@@ -387,8 +387,6 @@ extension ColorSwitchViewController : ColorServiceManagerDelegate, AVAudioRecord
         //NSLog("%@", "Blaa: \(data) Blaa")
 
         self.test = AVAudioPlayer(data: data as NSData, error: &error)
-        
-        
         self.test.play()
         //self.buttonBeep.play()
 
@@ -446,10 +444,5 @@ extension ColorSwitchViewController : ColorServiceManagerDelegate, AVAudioRecord
     func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
         println("\(error.localizedDescription)")
     }
-    
-    @IBAction func favorite(sender: StarButton) {
-        sender.isFavorite = !sender.isFavorite
-    }
-    
     
 }
