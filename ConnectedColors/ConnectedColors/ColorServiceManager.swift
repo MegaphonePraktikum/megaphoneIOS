@@ -258,7 +258,7 @@ extension ColorServiceManager : MCSessionDelegate {
             sendPing(peerID)
         }else if(str=="NotConnected"){
             pingData.removeObjectForKey(peerID);
-            if(didEveryoneReceive()){
+            if(session.connectedPeers.count > 0 && didEveryoneReceive()){
                 sendPlay()
             }
         }
