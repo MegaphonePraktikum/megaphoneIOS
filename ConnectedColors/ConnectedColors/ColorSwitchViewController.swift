@@ -408,17 +408,12 @@ extension ColorSwitchViewController : ColorServiceManagerDelegate, AVAudioRecord
     func playFile(manager: ColorServiceManager, data: NSData, delayMS : Double ) {
 
         var error: NSError?
-        
-        
-
+    
         self.test = AVAudioPlayer(data: data as NSData, error: &error)
-        self.test.play()
-        //self.buttonBeep.play()
+        self.test.playAtTime(self.test.deviceCurrentTime + delayMS)
+        //self.test.play()
 
     }
-    
-
-    
     
     func colorChanged(manager: ColorServiceManager, colorString: String) {
         NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
