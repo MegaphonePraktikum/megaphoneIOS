@@ -44,7 +44,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pji-Bm-TA5">
-                                <rect key="frame" x="25" y="222" width="50" height="30"/>
+                                <rect key="frame" x="16" y="447" width="50" height="30"/>
                                 <state key="normal" title="Record">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -53,7 +53,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pzC-fO-hxd">
-                                <rect key="frame" x="208" y="222" width="30" height="30"/>
+                                <rect key="frame" x="199" y="447" width="30" height="30"/>
                                 <state key="normal" title="Play">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -62,13 +62,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qL6-AS-ePo">
-                                <rect key="frame" x="25" y="302" width="43" height="21"/>
+                                <rect key="frame" x="16" y="527" width="43" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lzP-gl-2a5">
-                                <rect key="frame" x="125" y="222" width="33" height="30"/>
+                                <rect key="frame" x="116" y="447" width="33" height="30"/>
                                 <state key="normal" title="Stop">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -76,6 +76,18 @@
                                     <action selector="stop:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="al7-tS-XIP"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4PW-Yi-Sp6" customClass="StarButton" customModule="ConnectedColors" customModuleProvider="target">
+                                <rect key="frame" x="100" y="224" width="120" height="120"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hold down to record" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcf-WH-K8L">
+                                <rect key="frame" x="81" y="367" width="158" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -99,6 +111,7 @@
                     <connections>
                         <outlet property="connectionsLabel" destination="7jZ-Oe-uuY" id="SVy-L4-G9S"/>
                         <outlet property="playButton" destination="pzC-fO-hxd" id="BZM-RV-1Gm"/>
+                        <outlet property="recButton" destination="4PW-Yi-Sp6" id="dMS-9J-BIo"/>
                         <outlet property="recordButton" destination="pji-Bm-TA5" id="4vK-Pm-Ib0"/>
                         <outlet property="statusLabel" destination="qL6-AS-ePo" id="n7C-pg-9uN"/>
                         <outlet property="stopButton" destination="lzP-gl-2a5" id="d1N-Jx-8JJ"/>

@@ -43,6 +43,7 @@ class ColorSwitchViewController: UIViewController {
     
     @IBOutlet var statusLabel: UILabel!
 
+    @IBOutlet var recButton: StarButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,10 @@ class ColorSwitchViewController: UIViewController {
         playButton.enabled = false
         setSessionPlayback()
         askForNotifications()
+        
+        recButton.addTarget(self, action: "startRecord:", forControlEvents: UIControlEvents.TouchDown)
+        
+        recButton.addTarget(self, action: "stopRecord:", forControlEvents: UIControlEvents.TouchUpInside|UIControlEvents.TouchUpOutside)
 
         //buttonBeep = self.setupAudioPlayerWithFile("parkuhr", type:"mp3")
     }
@@ -443,6 +448,14 @@ extension ColorSwitchViewController : ColorServiceManagerDelegate, AVAudioRecord
     
     func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
         println("\(error.localizedDescription)")
+    }
+    
+    func startRecord(sender: StarButton) {
+        sender.isFavorite = true
+    }
+    
+    func stopRecord(sender: StarButton) {
+        sender.isFavorite = false
     }
     
 }

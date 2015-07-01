@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C284D8F1B44041500C5706E /* StarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8C1B44041500C5706E /* StarButton.swift */; };
+		9C284D901B44041500C5706E /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8D1B44041500C5706E /* Paths.swift */; };
+		9C284D911B44041500C5706E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8E1B44041500C5706E /* Extensions.swift */; };
 		9C6018B01B34A0B200C49BC6 /* test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C6018AF1B34A0B200C49BC6 /* test.mp3 */; };
 		9C6018B31B34C9DB00C49BC6 /* test2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9C6018B21B34C9DB00C49BC6 /* test2.m4a */; };
 		9C6018B41B34C9DB00C49BC6 /* test2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9C6018B21B34C9DB00C49BC6 /* test2.m4a */; };
@@ -32,6 +35,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C284D8C1B44041500C5706E /* StarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarButton.swift; sourceTree = "<group>"; };
+		9C284D8D1B44041500C5706E /* Paths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
+		9C284D8E1B44041500C5706E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9C6018AF1B34A0B200C49BC6 /* test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = test.mp3; sourceTree = "<group>"; };
 		9C6018B21B34C9DB00C49BC6 /* test2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = test2.m4a; sourceTree = "<group>"; };
 		9CA2F7EC1B346876006E16CA /* sirenpolice2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sirenpolice2.wav; sourceTree = SOURCE_ROOT; };
@@ -88,6 +94,9 @@
 		BF52C0A01AEFE4700042F9E8 /* ConnectedColors */ = {
 			isa = PBXGroup;
 			children = (
+				9C284D8C1B44041500C5706E /* StarButton.swift */,
+				9C284D8D1B44041500C5706E /* Paths.swift */,
+				9C284D8E1B44041500C5706E /* Extensions.swift */,
 				BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */,
 				BF52C0C51AEFEAEA0042F9E8 /* ColorServiceManager.swift */,
 				BF52C0A51AEFE4700042F9E8 /* ColorSwitchViewController.swift */,
@@ -234,6 +243,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF52C0A61AEFE4700042F9E8 /* ColorSwitchViewController.swift in Sources */,
+				9C284D911B44041500C5706E /* Extensions.swift in Sources */,
+				9C284D901B44041500C5706E /* Paths.swift in Sources */,
+				9C284D8F1B44041500C5706E /* StarButton.swift in Sources */,
 				BF52C0A41AEFE4700042F9E8 /* AppDelegate.swift in Sources */,
 				BF52C0C61AEFEAEA0042F9E8 /* ColorServiceManager.swift in Sources */,
 			);
