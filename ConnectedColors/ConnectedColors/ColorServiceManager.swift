@@ -116,7 +116,7 @@ class ColorServiceManager : NSObject {
             var error : NSError?
             if self.session.sendData( message.toNSData(), toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error) {
                 NSLog("%@", "sentPingTo: \(peerID)")
-                var peerData = pingData[peerID] as! NSMutableDictionary;
+                var peerData = pingData[peerID] as NSMutableDictionary;
                 peerData["pingSent"] = NSDate.timeIntervalSinceReferenceDate();
             }else{
                 NSLog("%@", "\(error)")
@@ -275,7 +275,7 @@ extension ColorServiceManager : MCSessionDelegate {
         case "PING":
             sendPong(peerID)
         case "PONG":
-            var peerData = pingData[peerID] as! NSMutableDictionary;
+            var peerData = pingData[peerID] as NSMutableDictionary;
             var pongReceived = NSDate.timeIntervalSinceReferenceDate();
             var pingSent = peerData["pingSent"]!.doubleValue as NSTimeInterval
             var latency = pongReceived - pingSent;
@@ -285,7 +285,7 @@ extension ColorServiceManager : MCSessionDelegate {
             NSLog("%@", "didCalculatePing: \(peerID) , \(latency * 1000.0)ms")
             var devicesAndPing : [String] = []
             for item in session.connectedPeers{
-                if let ping = pingData[item as! MCPeerID] as? NSMutableDictionary{
+                if let ping = pingData[item as MCPeerID] as? NSMutableDictionary{
                     var latency = Int(ping["latency"]!.doubleValue * 1000.0);
                     devicesAndPing.append("\(item.displayName) \(latency)ms")
                 }else{

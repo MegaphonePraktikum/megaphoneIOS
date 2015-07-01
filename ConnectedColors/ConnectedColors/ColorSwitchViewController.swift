@@ -11,7 +11,6 @@ import AVFoundation
 
 class ColorSwitchViewController: UIViewController {
 
-    @IBOutlet weak var connectionsLabel: UILabel!
     
     var documentsPath = NSHomeDirectory() + "/Documents/"
 
@@ -44,6 +43,16 @@ class ColorSwitchViewController: UIViewController {
     @IBOutlet var statusLabel: UILabel!
 
     @IBOutlet var recButton: StarButton!
+    
+    @IBOutlet var bgView: UIImageView!
+    
+    @IBOutlet var connectionsLabel: UILabel!
+    
+    var bgImage : UIView?
+
+    @IBOutlet var bgV: UIImageView!
+    
+    let screenSize: CGRect = UIScreen.mainScreen().bounds
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,18 +67,29 @@ class ColorSwitchViewController: UIViewController {
         
         recButton.addTarget(self, action: "stopRecord:", forControlEvents: UIControlEvents.TouchUpInside|UIControlEvents.TouchUpOutside)
 
+    
+
+        var image : UIImage = UIImage(named:"bg3.jpg")!
+        
+        bgV = UIImageView(image: image)
+        bgImage = UIImageView(image: image)
+        bgImage!.frame = CGRect(x: 0, y: self.navigationController!.navigationBar.bounds.height, width: screenSize.width, height: 225)
+        bgImage?.alpha = 0.8
+        view.insertSubview(bgImage!, atIndex: 0)
+
         //buttonBeep = self.setupAudioPlayerWithFile("parkuhr", type:"mp3")
     }
 
-    @IBAction func redTapped(sender: AnyObject) {
+    @IBAction func redTapped(sender: UIButton) {
         self.changeColor(UIColor.redColor())
         colorService.sendColor("red")
     }
     
-    @IBAction func yellowTapped(sender: AnyObject) {
+    @IBAction func yellowTapped(sender: UIButton) {
         self.changeColor(UIColor.yellowColor())
         colorService.sendColor("yellow")
     }
+    
     
     
     @IBAction func record(sender: UIButton) {
