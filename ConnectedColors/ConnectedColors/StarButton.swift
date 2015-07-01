@@ -96,12 +96,39 @@ public class StarButton: UIButton {
             
             
             
+            var gradientMask = CAShapeLayer();
+            gradientMask.fillColor = UIColor.clearColor().CGColor;
+            gradientMask.strokeColor = UIColor.blackColor().CGColor;
+            gradientMask.lineWidth = 4;
+            gradientMask.frame = CGRectMake(0, 0, 100, 100);
+            
+            var t = CGPathCreateMutable();
+            CGPathMoveToPoint(t, nil, 0, 0);
+            CGPathAddLineToPoint(t, nil, 100, 100);
+            
+            gradientMask.path = t;
+            
+            
+            var gradientLayer = CAGradientLayer();
+            gradientLayer.startPoint = CGPointMake(0.5,1.0);
+            gradientLayer.endPoint = CGPointMake(0.5,0.0);
+            gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth(fillRingShape.bounds), CGRectGetHeight(fillRingShape.bounds));
+            var colors = NSMutableArray();
+            for (var i : CGFloat = 0; i < 10; i++) {
+                colors.addObject(UIColor(hue: 0.08, saturation: 1, brightness: (i/20)+0.4, alpha: 1).CGColor)
+                
+            }
+            gradientLayer.colors = colors;
+            
+            gradientLayer.mask = fillRingShape
+            
+            
             
         
             
             
             
-            self.layer.addSublayer(fillRingShape)
+            self.layer.addSublayer(gradientLayer)
         }
         if outerRingShape == nil {
             outerRingShape = CAShapeLayer()

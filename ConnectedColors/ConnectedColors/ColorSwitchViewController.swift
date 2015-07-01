@@ -69,15 +69,45 @@ class ColorSwitchViewController: UIViewController {
 
     
 
-        var image : UIImage = UIImage(named:"bg3.jpg")!
+        /*var image : UIImage = UIImage(named:"bg3.jpg")!
         
         bgV = UIImageView(image: image)
         bgImage = UIImageView(image: image)
         bgImage!.frame = CGRect(x: 0, y: self.navigationController!.navigationBar.bounds.height, width: screenSize.width, height: 225)
         bgImage?.alpha = 0.8
-        view.insertSubview(bgImage!, atIndex: 0)
+        view.insertSubview(bgImage!, atIndex: 0)*/
 
         //buttonBeep = self.setupAudioPlayerWithFile("parkuhr", type:"mp3")
+        
+        //UIView *v = [[UIView alloc] initWithFrame:self.window.frame];
+        
+        var gradientMask = CAShapeLayer();
+        gradientMask.fillColor = UIColor.clearColor().CGColor;
+        gradientMask.strokeColor = UIColor.blackColor().CGColor;
+        gradientMask.lineWidth = 4;
+        gradientMask.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+        
+        var t = CGPathCreateMutable();
+        CGPathMoveToPoint(t, nil, 0, 0);
+        CGPathAddLineToPoint(t, nil, self.view.bounds.size.width, self.view.bounds.size.height);
+        
+        gradientMask.path = t;
+        
+        
+        var gradientLayer = CAGradientLayer();
+        gradientLayer.startPoint = CGPointMake(0.5,1.0);
+        gradientLayer.endPoint = CGPointMake(0.5,0.0);
+        gradientLayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+        var colors = NSMutableArray();
+        for (var i : CGFloat = 0; i < 10; i++) {
+            colors.addObject(UIColor(red: i*0.1, green: 1, blue: 1, alpha: 1))
+
+        }
+        gradientLayer.colors = colors;
+        
+        gradientLayer.mask = gradientMask
+        
+        self.view.layer.addSublayer(gradientLayer)
     }
 
     @IBAction func redTapped(sender: UIButton) {

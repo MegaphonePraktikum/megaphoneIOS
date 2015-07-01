@@ -116,7 +116,7 @@ class ColorServiceManager : NSObject {
             var error : NSError?
             if self.session.sendData( message.toNSData(), toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error) {
                 NSLog("%@", "sentPingTo: \(peerID)")
-                var peerData = pingData[peerID] as! NSMutableDictionary;
+                var peerData = pingData[peerID] as NSMutableDictionary;
                 peerData["pingSent"] = NSDate.timeIntervalSinceReferenceDate();
             }else{
                 NSLog("%@", "\(error)")
@@ -176,8 +176,8 @@ class ColorServiceManager : NSObject {
     func getMaxPing(dict : NSMutableDictionary) -> Double{
         var maxPing = 0.0;
         for peer in dict{
-            var peerDict = peer.value as! NSMutableDictionary
-            var currentPing = peerDict["latency"] as! Double
+            var peerDict = peer.value as NSMutableDictionary
+            var currentPing = peerDict["latency"] as Double
             if(maxPing < currentPing){
                 maxPing = currentPing
             }
@@ -187,7 +187,7 @@ class ColorServiceManager : NSObject {
 
     func didEveryoneReceive() ->Bool{
         for peer in pingData{
-            var peerDict = peer.value as! NSMutableDictionary
+            var peerDict = peer.value as NSMutableDictionary
             if let result = peerDict["received"] as? Bool {
                 if(!result){
                     return false;
@@ -275,7 +275,7 @@ extension ColorServiceManager : MCSessionDelegate {
         case "PING":
             sendPong(peerID)
         case "PONG":
-            var peerData = pingData[peerID]as! NSMutableDictionary;
+            var peerData = pingData[peerID]as NSMutableDictionary;
             var pongReceived = NSDate.timeIntervalSinceReferenceDate();
             var pingSent = peerData["pingSent"]!.doubleValue as NSTimeInterval
             var latency = pongReceived - pingSent;
@@ -285,7 +285,7 @@ extension ColorServiceManager : MCSessionDelegate {
             NSLog("%@", "didCalculatePing: \(peerID) , \(latency * 1000.0)ms")
             var devicesAndPing : [String] = []
             for item in session.connectedPeers{
-                if let ping = pingData[item as! MCPeerID] as? NSMutableDictionary{
+                if let ping = pingData[item as MCPeerID] as? NSMutableDictionary{
                     if let lat = ping["latency"] {
                         var latency = Int(lat.doubleValue * 1000.0);
                         devicesAndPing.append("\(item.displayName) \(latency)ms")
@@ -302,17 +302,17 @@ extension ColorServiceManager : MCSessionDelegate {
             sendReceive(peerID)
         case "RECEIVE":
             NSLog("%@", "receiveFile: \(peerID)")
-            var peerData = pingData[peerID] as! NSMutableDictionary;
+            var peerData = pingData[peerID] as NSMutableDictionary;
             peerData["received"] = true;
             if(didEveryoneReceive()){
                 sendPlay()
             }
         case "PLAY":
-            var peerDict = NSKeyedUnarchiver.unarchiveObjectWithData(message.data!) as! NSMutableDictionary
+            var peerDict = NSKeyedUnarchiver.unarchiveObjectWithData(message.data!) as NSMutableDictionary
             println("peerDict \(peerDict)")
-            var peerData = peerDict[myPeerId] as! NSMutableDictionary
+            var peerData = peerDict[myPeerId] as NSMutableDictionary
             println("peerData \(peerData)")
-            var myPing : Double = peerData["latency"] as! Double
+            var myPing : Double = peerData["latency"] as Double
             println("myPing \(myPing)")
             var maxPing : Double = getMaxPing(peerDict)
             println("maxPing \(maxPing)")
