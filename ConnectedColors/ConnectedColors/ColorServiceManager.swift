@@ -14,7 +14,7 @@ protocol ColorServiceManagerDelegate {
     func connectedDevicesChanged(manager : ColorServiceManager, connectedDevices: [String])
     func pingChanged(manager : ColorServiceManager, connectedDevices: [String])
     func colorChanged(manager : ColorServiceManager, colorString: String)
-    func playFile(manager : ColorServiceManager, data: NSData, delayMS : Int)
+    func playFile(manager : ColorServiceManager, data: NSData, delayMS : Double)
 
     
 }
@@ -26,7 +26,7 @@ class ColorServiceManager : NSObject {
     private let serviceAdvertiser : MCNearbyServiceAdvertiser
     private let serviceBrowser : MCNearbyServiceBrowser
     private let pingData : NSMutableDictionary
-    private var soundFile : NSData
+    private var soundFile : NSData?
     var delegate : ColorServiceManagerDelegate?
     
     override init() {
@@ -116,7 +116,7 @@ class ColorServiceManager : NSObject {
             var error : NSError?
             if self.session.sendData( message.toNSData(), toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error) {
                 NSLog("%@", "sentPingTo: \(peerID)")
-                var peerData = pingData[peerID] as NSMutableDictionary;
+                var peerData = pingData[peerID] as! NSMutableDictionary;
                 peerData["pingSent"] = NSDate.timeIntervalSinceReferenceDate();
             }else{
                 NSLog("%@", "\(error)")
@@ -173,11 +173,11 @@ class ColorServiceManager : NSObject {
         
     }
     
-    func getMaxPing(dict : NSMutableDictionary) -> Int{
-        var maxPing = 0;
+    func getMaxPing(dict : NSMutableDictionary) -> Double{
+        var maxPing = 0.0;
         for peer in dict{
             var peerDict = peer.value as! NSMutableDictionary
-            var currentPing = peerDict["latency"] as! Int
+            var currentPing = peerDict["latency"] as! Double
             if(maxPing < currentPing){
                 maxPing = currentPing
             }
@@ -275,7 +275,7 @@ extension ColorServiceManager : MCSessionDelegate {
         case "PING":
             sendPong(peerID)
         case "PONG":
-            var peerData = pingData[peerID] as NSMutableDictionary;
+            var peerData = pingData[peerID]as! NSMutableDictionary;
             var pongReceived = NSDate.timeIntervalSinceReferenceDate();
             var pingSent = peerData["pingSent"]!.doubleValue as NSTimeInterval
             var latency = pongReceived - pingSent;
@@ -285,9 +285,11 @@ extension ColorServiceManager : MCSessionDelegate {
             NSLog("%@", "didCalculatePing: \(peerID) , \(latency * 1000.0)ms")
             var devicesAndPing : [String] = []
             for item in session.connectedPeers{
-                if let ping = pingData[item as MCPeerID] as? NSMutableDictionary{
-                    var latency = Int(ping["latency"]!.doubleValue * 1000.0);
-                    devicesAndPing.append("\(item.displayName) \(latency)ms")
+                if let ping = pingData[item as! MCPeerID] as? NSMutableDictionary{
+                    if let lat = ping["latency"] {
+                        var latency = Int(lat.doubleValue * 1000.0);
+                        devicesAndPing.append("\(item.displayName) \(latency)ms")
+                    }
                 }else{
                     devicesAndPing.append(item.displayName)
                 }
@@ -307,10 +309,16 @@ extension ColorServiceManager : MCSessionDelegate {
             }
         case "PLAY":
             var peerDict = NSKeyedUnarchiver.unarchiveObjectWithData(message.data!) as! NSMutableDictionary
+            println("peerDict \(peerDict)")
             var peerData = peerDict[myPeerId] as! NSMutableDictionary
-            var myPing = peerData["latency"] as! Int
-            var maxPing = getMaxPing(peerDict)
-            self.delegate?.playFile(self, data: soundFile, delayMS: maxPing-myPing)
+            println("peerData \(peerData)")
+            var myPing : Double = peerData["latency"] as! Double
+            println("myPing \(myPing)")
+            var maxPing : Double = getMaxPing(peerDict)
+            println("maxPing \(maxPing)")
+            if let sound = soundFile {
+                self.delegate?.playFile(self, data: sound, delayMS: maxPing-myPing)
+            }
         default:
             //Errormessage
             NSLog("%@", "Error in didReceiveData")

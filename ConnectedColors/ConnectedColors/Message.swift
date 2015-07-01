@@ -20,8 +20,8 @@ class Message : NSObject, NSCoding {
     // required for NSCoding but never used
     required convenience init(coder decoder: NSCoder) {
         self.init()
-        self.type = decoder.decodeObjectForKey("type") as String
-        self.data = decoder.decodeObjectForKey("data") as NSData?
+        self.type = decoder.decodeObjectForKey("type") as! String
+        self.data = decoder.decodeObjectForKey("data") as! NSData?
     }
     
     func encodeWithCoder(coder: NSCoder) {
@@ -39,7 +39,7 @@ class Message : NSObject, NSCoding {
     // init when received
     convenience init(data : NSData) {
         self.init()
-        let m : Message = NSKeyedUnarchiver.unarchiveObjectWithData(data) as Message
+        let m : Message = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Message
         self.type = m.type
         self.data = m.data
     }
