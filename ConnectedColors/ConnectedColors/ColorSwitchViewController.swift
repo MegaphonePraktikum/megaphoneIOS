@@ -385,7 +385,7 @@ extension ColorSwitchViewController : ColorServiceManagerDelegate, AVAudioRecord
         NSLog("%@", "pingChanged")
     }
     
-    func playFile(manager: ColorServiceManager, data: NSData) {
+    func playFile(manager: ColorServiceManager, data: NSData, delayMS : Int) {
 
         var error: NSError?
         

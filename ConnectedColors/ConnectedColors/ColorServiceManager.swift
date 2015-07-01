@@ -14,7 +14,7 @@ protocol ColorServiceManagerDelegate {
     func connectedDevicesChanged(manager : ColorServiceManager, connectedDevices: [String])
     func pingChanged(manager : ColorServiceManager, connectedDevices: [String])
     func colorChanged(manager : ColorServiceManager, colorString: String)
-    func playFile(manager : ColorServiceManager, data: NSData)
+    func playFile(manager : ColorServiceManager, data: NSData, delayMS : Int)
 
     
 }
@@ -26,6 +26,7 @@ class ColorServiceManager : NSObject {
     private let serviceAdvertiser : MCNearbyServiceAdvertiser
     private let serviceBrowser : MCNearbyServiceBrowser
     private let pingData : NSMutableDictionary
+    private var soundFile : NSData
     var delegate : ColorServiceManagerDelegate?
     
     override init() {
@@ -34,6 +35,7 @@ class ColorServiceManager : NSObject {
         self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: ColorServiceType)
         
         self.pingData = NSMutableDictionary()
+        self.soundFile = NSData()
 
         super.init()
         
@@ -138,7 +140,66 @@ class ColorServiceManager : NSObject {
         }
         
     }
+    
+    func sendReceive(peerID : MCPeerID) {
+        NSLog("%@", "trySendPongTo: \(peerID)")
+        
+        let message : Message = Message(type: "RECEIVE")
+        
+        if session.connectedPeers.count > 0 {
+            var error : NSError?
+            if self.session.sendData( message.toNSData(), toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error) {
+                NSLog("%@", "sentReceiveTo: \(peerID)")
+            }else{
+                NSLog("%@", "\(error)")
+            }
+        }
+        
+    }
+    
+    func sendPlay() {
+        NSLog("%@", "trySendPlayTo: \(session.connectedPeers)")
+        
+        let message : Message = Message(type: "PLAY", data: NSKeyedArchiver.archivedDataWithRootObject(pingData))
+        
+        if session.connectedPeers.count > 0 {
+            var error : NSError?
+            if self.session.sendData( message.toNSData(), toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error) {
+                NSLog("%@", "sentPlayTo: \(session.connectedPeers)")
+            }else{
+                NSLog("%@", "\(error)")
+            }
+        }
+        
+    }
+    
+    func getMaxPing(dict : NSMutableDictionary) -> Int{
+        var maxPing = 0;
+        for peer in dict{
+            var peerDict = peer.value as! NSMutableDictionary
+            var currentPing = peerDict["latency"] as! Int
+            if(maxPing < currentPing){
+                maxPing = currentPing
+            }
+        }
+        return maxPing
+    }
 
+    func didEveryoneReceive() ->Bool{
+        for peer in pingData{
+            var peerDict = peer.value as! NSMutableDictionary
+            if let result = peerDict["received"] as? Bool {
+                if(!result){
+                    return false;
+                }
+            }
+            /*var result = peerDict["received"] as? Bool
+            if ((result != nil && !result) != nil){
+                return false;
+            }*/
+        }
+        return true;
+    }
     
 }
 
@@ -197,6 +258,9 @@ extension ColorServiceManager : MCSessionDelegate {
             sendPing(peerID)
         }else if(str=="NotConnected"){
             pingData.removeObjectForKey(peerID);
+            if(didEveryoneReceive()){
+                sendPlay()
+            }
         }
         self.delegate?.connectedDevicesChanged(self, connectedDevices: session.connectedPeers.map({$0.displayName}))
     }
@@ -205,6 +269,7 @@ extension ColorServiceManager : MCSessionDelegate {
         NSLog("%@", "didReceiveData: \(data.length) bytes")
         
         let message : Message = Message(data: data!)
+        NSLog("%@", "didReceiveDataType: \(message.type)")
         
         switch message.type {
         case "PING":
@@ -231,7 +296,21 @@ extension ColorServiceManager : MCSessionDelegate {
             self.delegate?.pingChanged(self, connectedDevices: devicesAndPing)
             
         case "FILE":
-            self.delegate?.playFile(self, data: message.data!)
+            soundFile = message.data!
+            sendReceive(peerID)
+        case "RECEIVE":
+            NSLog("%@", "receiveFile: \(peerID)")
+            var peerData = pingData[peerID] as! NSMutableDictionary;
+            peerData["received"] = true;
+            if(didEveryoneReceive()){
+                sendPlay()
+            }
+        case "PLAY":
+            var peerDict = NSKeyedUnarchiver.unarchiveObjectWithData(message.data!) as! NSMutableDictionary
+            var peerData = peerDict[myPeerId] as! NSMutableDictionary
+            var myPing = peerData["latency"] as! Int
+            var maxPing = getMaxPing(peerDict)
+            self.delegate?.playFile(self, data: soundFile, delayMS: maxPing-myPing)
         default:
             //Errormessage
             NSLog("%@", "Error in didReceiveData")
