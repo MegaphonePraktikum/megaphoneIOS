@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840D26F11B441611005203FC /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D26F01B441611005203FC /* Message.swift */; };
 		9C284D8F1B44041500C5706E /* StarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8C1B44041500C5706E /* StarButton.swift */; };
 		9C284D901B44041500C5706E /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8D1B44041500C5706E /* Paths.swift */; };
 		9C284D911B44041500C5706E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8E1B44041500C5706E /* Extensions.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		840D26F01B441611005203FC /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		9C284D8C1B44041500C5706E /* StarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarButton.swift; sourceTree = "<group>"; };
 		9C284D8D1B44041500C5706E /* Paths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
 		9C284D8E1B44041500C5706E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */,
 				BF52C0C51AEFEAEA0042F9E8 /* ColorServiceManager.swift */,
 				BF52C0A51AEFE4700042F9E8 /* ColorSwitchViewController.swift */,
+				840D26F01B441611005203FC /* Message.swift */,
 				BF52C0A71AEFE4700042F9E8 /* Main.storyboard */,
 				BF52C0AA1AEFE4700042F9E8 /* Images.xcassets */,
 				BF52C0AC1AEFE4700042F9E8 /* LaunchScreen.xib */,
@@ -248,6 +251,7 @@
 				9C284D8F1B44041500C5706E /* StarButton.swift in Sources */,
 				BF52C0A41AEFE4700042F9E8 /* AppDelegate.swift in Sources */,
 				BF52C0C61AEFEAEA0042F9E8 /* ColorServiceManager.swift in Sources */,
+				840D26F11B441611005203FC /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

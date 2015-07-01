@@ -79,9 +79,12 @@ class ColorServiceManager : NSObject {
     func sendColor(colorName : String) {
         NSLog("%@", "sendColor: \(colorName)")
         
+        let message: Message = Message(type: "FILE", data: setup2("test", type:"mp3"))
+
+        
         if session.connectedPeers.count > 0 {
             var error : NSError?
-            if !self.session.sendData(setup2("test", type:"mp3"), toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error) {
+            if !self.session.sendData(message.toNSData(), toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error) {
                 NSLog("%@", "\(error)")
             }
         }
@@ -91,9 +94,11 @@ class ColorServiceManager : NSObject {
     func sendFile(soundFileURL : NSURL) {
         NSLog("%@", "sendColor: \(soundFileURL)")
         
+        let message : Message = Message(type: "FILE", data: setupAudioPlayerWithFile(soundFileURL))
+        
         if session.connectedPeers.count > 0 {
             var error : NSError?
-            if !self.session.sendData( setupAudioPlayerWithFile(soundFileURL), toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error) {
+            if !self.session.sendData( message.toNSData(), toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error) {
                 NSLog("%@", "\(error)")
             }
         }
@@ -103,11 +108,11 @@ class ColorServiceManager : NSObject {
     func sendPing(peerID : MCPeerID) {
         NSLog("%@", "trySendPingTo: \(peerID)")
         
-        var data : NSData! = "ping".dataUsingEncoding(NSUTF8StringEncoding)
-        
+        let message : Message = Message(type: "PING")
+
         if session.connectedPeers.count > 0 {
             var error : NSError?
-            if self.session.sendData( data, toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error) {
+            if self.session.sendData( message.toNSData(), toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error) {
                 NSLog("%@", "sentPingTo: \(peerID)")
                 var peerData = pingData[peerID] as! NSMutableDictionary;
                 peerData["pingSent"] = NSDate.timeIntervalSinceReferenceDate();
@@ -121,11 +126,11 @@ class ColorServiceManager : NSObject {
     func sendPong(peerID : MCPeerID) {
         NSLog("%@", "trySendPongTo: \(peerID)")
         
-        var data : NSData! = "pong".dataUsingEncoding(NSUTF8StringEncoding)
+        let message : Message = Message(type: "PONG")
         
         if session.connectedPeers.count > 0 {
             var error : NSError?
-            if self.session.sendData( data, toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error) {
+            if self.session.sendData( message.toNSData(), toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error) {
                 NSLog("%@", "sentPongTo: \(peerID)")
             }else{
                 NSLog("%@", "\(error)")
@@ -199,39 +204,39 @@ extension ColorServiceManager : MCSessionDelegate {
     func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!) {
         NSLog("%@", "didReceiveData: \(data.length) bytes")
         
-        if(data.length < 8){
-            let str = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
-            if (str=="ping"){
-                sendPong(peerID)
-            }else if(str=="pong"){
-                var peerData = pingData[peerID] as! NSMutableDictionary;
-                var pongReceived = NSDate.timeIntervalSinceReferenceDate();
-                var pingSent = peerData["pingSent"]!.doubleValue as NSTimeInterval
-                var latency = pongReceived - pingSent;
-                peerData["latency"] = latency;
-                peerData.removeObjectForKey("pingSent");
-                
-                NSLog("%@", "didCalculatePing: \(peerID) , \(latency * 1000.0)ms")
-                var devicesAndPing : [String] = []
-                for item in session.connectedPeers{
-                    if let ping = pingData[item as! MCPeerID] as? NSMutableDictionary{
-                        var latency = Int(ping["latency"]!.doubleValue * 1000.0);
-                        devicesAndPing.append("\(item.displayName) \(latency)ms")
-                    }else{
-                        devicesAndPing.append(item.displayName)
-                    }
+        let message : Message = Message(data: data!)
+        
+        switch message.type {
+        case "PING":
+            sendPong(peerID)
+        case "PONG":
+            var peerData = pingData[peerID] as! NSMutableDictionary;
+            var pongReceived = NSDate.timeIntervalSinceReferenceDate();
+            var pingSent = peerData["pingSent"]!.doubleValue as NSTimeInterval
+            var latency = pongReceived - pingSent;
+            peerData["latency"] = latency;
+            peerData.removeObjectForKey("pingSent");
+            
+            NSLog("%@", "didCalculatePing: \(peerID) , \(latency * 1000.0)ms")
+            var devicesAndPing : [String] = []
+            for item in session.connectedPeers{
+                if let ping = pingData[item as! MCPeerID] as? NSMutableDictionary{
+                    var latency = Int(ping["latency"]!.doubleValue * 1000.0);
+                    devicesAndPing.append("\(item.displayName) \(latency)ms")
+                }else{
+                    devicesAndPing.append(item.displayName)
                 }
-                NSLog("%@", "changePing")
-                self.delegate?.pingChanged(self, connectedDevices: devicesAndPing)
-            }else{
-                
             }
-        }else{
-            //self.delegate?.colorChanged(self, colorString: str)
-            self.delegate?.playFile(self, data: data)
+            NSLog("%@", "changePing")
+            self.delegate?.pingChanged(self, connectedDevices: devicesAndPing)
+            
+        case "FILE":
+            self.delegate?.playFile(self, data: message.data!)
+        default:
+            //Errormessage
+            NSLog("%@", "Error in didReceiveData")
         }
-        
-        
+
     }
     
     func session(session: MCSession!, didReceiveStream stream: NSInputStream!, withName streamName: String!, fromPeer peerID: MCPeerID!) {
