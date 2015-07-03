@@ -236,10 +236,10 @@ class ColorSwitchViewController: UIViewController {
         
         var recordSettings:[NSObject: AnyObject] = [
             AVFormatIDKey: kAudioFormatAppleLossless,
-            AVEncoderAudioQualityKey : AVAudioQuality.Max.rawValue,
-            AVEncoderBitRateKey : 320000,
-            AVNumberOfChannelsKey: 2,
-            AVSampleRateKey : 44100.0
+            AVEncoderAudioQualityKey : AVAudioQuality.Min.rawValue,
+            AVEncoderBitRateKey : 32000,
+            AVNumberOfChannelsKey: 1,
+            AVSampleRateKey : 22050.0
         ]
         var error: NSError?
         recorder = AVAudioRecorder(URL: soundFileURL!, settings: recordSettings, error: &error)

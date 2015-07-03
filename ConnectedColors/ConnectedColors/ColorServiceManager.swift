@@ -263,8 +263,10 @@ extension ColorServiceManager : MCNearbyServiceAdvertiserDelegate {
         self.parentPeer = peerID
         invitationHandler(true, self.parentSession)
         if(self.parentSession.connectedPeers.count > maxPeers){
+            NSLog("%@", "tryDisconnectBecauseMax")
             self.parentSession.disconnect()
         }else{
+            NSLog("%@", "stopAdvertising")
             self.serviceAdvertiser.stopAdvertisingPeer()
         }
         
@@ -310,12 +312,14 @@ extension ColorServiceManager : MCSessionDelegate {
         NSLog("%@", "peer \(peerID) didChangeState: \(str)")
         if(str=="Connected"){
             if(session == parentSession){
+                NSLog("%@", "isParentSession")
                 if(parentSession.connectedPeers.count >= maxPeers){
                     serviceBrowser.startBrowsingForPeers()
                 }else{
                     serviceBrowser.stopBrowsingForPeers()
                 }
             }else{
+                NSLog("%@", "isChildSession")
                 pingData[peerID] = NSMutableDictionary()
                 sendPing(peerID)
                 if(session.connectedPeers.count >= maxPeers){
@@ -328,6 +332,7 @@ extension ColorServiceManager : MCSessionDelegate {
             
         }else if(str=="NotConnected"){
             if(peerID == parentPeer){
+                NSLog("%@", "parentDisconnected")
                 parentSession.disconnect()
                 self.session.disconnect()
                 serviceAdvertiser.startAdvertisingPeer()
