@@ -118,7 +118,7 @@ public class StarButton: UIButton {
                 colors.addObject(UIColor(hue: 0.08, saturation: 1, brightness: (i/20)+0.4, alpha: 1).CGColor)
                 
             }
-            gradientLayer.colors = colors;
+            gradientLayer.colors = colors as [AnyObject];
             
             gradientLayer.mask = fillRingShape
             

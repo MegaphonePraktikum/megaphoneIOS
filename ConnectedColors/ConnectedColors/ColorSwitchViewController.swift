@@ -103,7 +103,7 @@ class ColorSwitchViewController: UIViewController {
             colors.addObject(UIColor(red: i*0.1, green: 1, blue: 1, alpha: 1))
 
         }
-        gradientLayer.colors = colors;
+        gradientLayer.colors = colors as [AnyObject];
         
         gradientLayer.mask = gradientMask
         
@@ -118,6 +118,10 @@ class ColorSwitchViewController: UIViewController {
     @IBAction func yellowTapped(sender: UIButton) {
         self.changeColor(UIColor.yellowColor())
         colorService.sendColor("yellow")
+    }
+    
+    @IBAction func startBrowser(sender: UIButton) {
+        colorService.startBrowser()
     }
     
     
@@ -436,7 +440,7 @@ extension ColorSwitchViewController : ColorServiceManagerDelegate, AVAudioRecord
     }
     
     func playFile(manager: ColorServiceManager, data: NSData, delayMS : Double ) {
-
+        NSLog("%@", "playWithDelay: \(delayMS)")
         var error: NSError?
     
         self.test = AVAudioPlayer(data: data as NSData, error: &error)

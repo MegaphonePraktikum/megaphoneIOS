@@ -16,7 +16,7 @@ extension UIColor {
             cString = (cString as NSString).substringFromIndex(1)
         }
         
-        if (countElements(cString) != 6) {
+        if (count(cString) != 6) {
             self.init()
             return
         }
@@ -39,7 +39,7 @@ import UIKit
 
 extension CALayer {
     func applyAnimation(animation: CABasicAnimation) {
-        let copy = animation.copy() as CABasicAnimation
+        let copy = animation.copy() as! CABasicAnimation
         if copy.fromValue == nil {
             copy.fromValue = self.presentationLayer().valueForKeyPath(copy.keyPath)
         }
