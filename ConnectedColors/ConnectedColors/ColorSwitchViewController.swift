@@ -444,6 +444,7 @@ extension ColorSwitchViewController : ColorServiceManagerDelegate, AVAudioRecord
         var error: NSError?
     
         self.test = AVAudioPlayer(data: data as NSData, error: &error)
+        self.test.prepareToPlay()
         self.test.playAtTime(self.test.deviceCurrentTime + delayMS)
         //self.test.play()
 

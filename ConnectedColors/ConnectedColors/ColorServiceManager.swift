@@ -21,6 +21,8 @@ protocol ColorServiceManagerDelegate {
 
 class ColorServiceManager : NSObject {
     
+    private let maxPeers : Int = 1
+    
     private let ColorServiceType = "example-color"
     private let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
     private let serviceAdvertiser : MCNearbyServiceAdvertiser
@@ -233,8 +235,11 @@ class ColorServiceManager : NSObject {
             var peerDict = peer.value as! NSMutableDictionary
             if let result = peerDict["received"] as? Bool {
                 if(!result){
-                    return false;
+                    return false
                 }
+            }
+            else {
+                return false
             }
             /*var result = peerDict["received"] as? Bool
             if ((result != nil && !result) != nil){
@@ -257,7 +262,12 @@ extension ColorServiceManager : MCNearbyServiceAdvertiserDelegate {
         NSLog("%@", "didReceiveInvitationFromPeer \(peerID)")
         self.parentPeer = peerID
         invitationHandler(true, self.parentSession)
-        self.serviceAdvertiser.stopAdvertisingPeer()
+        if(self.parentSession.connectedPeers.count > maxPeers){
+            self.parentSession.disconnect()
+        }else{
+            self.serviceAdvertiser.stopAdvertisingPeer()
+        }
+        
     }
 
 }
@@ -299,15 +309,43 @@ extension ColorServiceManager : MCSessionDelegate {
         var str = state.stringValue();
         NSLog("%@", "peer \(peerID) didChangeState: \(str)")
         if(str=="Connected"){
-            pingData[peerID] = NSMutableDictionary();
-            sendPing(peerID)
-        }else if(str=="NotConnected"){
-            pingData.removeObjectForKey(peerID);
-            if(session.connectedPeers.count > 0 && didEveryoneReceive()){
-                if(isSender){
-                    sendPlay(self.maxPing)
+            if(session == parentSession){
+                if(parentSession.connectedPeers.count >= maxPeers){
+                    serviceBrowser.startBrowsingForPeers()
                 }else{
-                    sendReceive()
+                    serviceBrowser.stopBrowsingForPeers()
+                }
+            }else{
+                pingData[peerID] = NSMutableDictionary()
+                sendPing(peerID)
+                if(session.connectedPeers.count >= maxPeers){
+                    serviceBrowser.stopBrowsingForPeers()
+                }else{
+                    serviceBrowser.startBrowsingForPeers()
+                }
+            }
+            
+            
+        }else if(str=="NotConnected"){
+            if(peerID == parentPeer){
+                parentSession.disconnect()
+                self.session.disconnect()
+                serviceAdvertiser.startAdvertisingPeer()
+            }else{
+                if(session == self.session){
+                    if(session.connectedPeers.count < maxPeers && parentSession.connectedPeers.count >= maxPeers){
+                        serviceBrowser.startBrowsingForPeers()
+                    }else{
+                        serviceBrowser.stopBrowsingForPeers()
+                    }
+                    pingData.removeObjectForKey(peerID);
+                    if(session.connectedPeers.count > 0 && didEveryoneReceive()){
+                        if(isSender){
+                            sendPlay(self.maxPing)
+                        }else{
+                            sendReceive()
+                        }
+                    }
                 }
             }
         }
@@ -327,7 +365,7 @@ extension ColorServiceManager : MCSessionDelegate {
             var peerData = pingData[peerID]as! NSMutableDictionary;
             var pongReceived = NSDate.timeIntervalSinceReferenceDate();
             var pingSent = peerData["pingSent"]!.doubleValue as NSTimeInterval
-            var latency = pongReceived - pingSent;
+            var latency = (pongReceived - pingSent)/2;
             peerData["latency"] = latency;
             peerData.removeObjectForKey("pingSent");
             
