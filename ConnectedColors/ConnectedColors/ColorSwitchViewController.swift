@@ -235,7 +235,7 @@ class ColorSwitchViewController: UIViewController {
         }
         
         var recordSettings:[NSObject: AnyObject] = [
-            AVFormatIDKey: kAudioFormatAppleLossless,
+            AVFormatIDKey: kAudioFormatMPEG4AAC,
             AVEncoderAudioQualityKey : AVAudioQuality.Min.rawValue,
             AVEncoderBitRateKey : 32000,
             AVNumberOfChannelsKey: 1,
