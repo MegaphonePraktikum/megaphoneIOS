@@ -236,6 +236,9 @@ class ColorServiceManager : NSObject {
                     return false;
                 }
             }
+            else {
+                return false
+            }
             /*var result = peerDict["received"] as? Bool
             if ((result != nil && !result) != nil){
                 return false;
@@ -327,7 +330,7 @@ extension ColorServiceManager : MCSessionDelegate {
             var peerData = pingData[peerID]as! NSMutableDictionary;
             var pongReceived = NSDate.timeIntervalSinceReferenceDate();
             var pingSent = peerData["pingSent"]!.doubleValue as NSTimeInterval
-            var latency = pongReceived - pingSent;
+            var latency = (pongReceived - pingSent)/2;
             peerData["latency"] = latency;
             peerData.removeObjectForKey("pingSent");
             
