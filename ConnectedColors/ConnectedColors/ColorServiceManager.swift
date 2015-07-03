@@ -348,6 +348,7 @@ extension ColorServiceManager : MCSessionDelegate {
                     }
                 }
             }
+
         }
         self.delegate?.connectedDevicesChanged(self, connectedDevices: session.connectedPeers.map({$0.displayName}))
     }
