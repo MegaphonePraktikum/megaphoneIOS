@@ -331,11 +331,14 @@ extension ColorServiceManager : MCSessionDelegate {
             
             
         }else if(str=="NotConnected"){
+            if(parentSession.connectedPeers.count == 0 && session.connectedPeers.count == 0){
+                serviceAdvertiser.startAdvertisingPeer()
+            }
             if(peerID == parentPeer){
                 NSLog("%@", "parentDisconnected")
+                serviceBrowser.stopBrowsingForPeers()
                 parentSession.disconnect()
                 self.session.disconnect()
-                serviceAdvertiser.startAdvertisingPeer()
             }else{
                 if(session == self.session){
                     if(session.connectedPeers.count < maxPeers && parentSession.connectedPeers.count >= maxPeers){
