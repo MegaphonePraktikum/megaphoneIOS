@@ -15,10 +15,14 @@ public class StarButton: UIButton {
     private var starShape: CAShapeLayer!
     private var outerRingShape: CAShapeLayer!
     private var fillRingShape: CAShapeLayer!
-    
+    private var circleLayer: CAShapeLayer!
+
     private let starKey = "FAVANIMKEY"
     private let favoriteKey = "FAVORITE"
     private let notFavoriteKey = "NOTFAVORITE"
+    
+    private var timer : NSTimer!
+    private var val = 0.0;
     
     @IBInspectable
     var lineWidth: CGFloat = 1 {
@@ -157,6 +161,21 @@ public class StarButton: UIButton {
             starShape.opacity = 1
             self.layer.addSublayer(starShape)
         }
+        
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: frame.size.width / 2.0, y: frame.size.height / 2.0), radius: (frame.size.width - 10)/2, startAngle: -CGFloat(M_PI * 0.5), endAngle: CGFloat(M_PI * 2.0), clockwise: true)
+        
+        // Setup the CAShapeLayer with the path, colors, and line width
+        circleLayer = CAShapeLayer()
+        circleLayer.path = circlePath.CGPath
+        circleLayer.fillColor = UIColor.clearColor().CGColor
+        circleLayer.strokeColor = UIColor(hue: 0, saturation: 0, brightness: 1, alpha: 0.7).CGColor
+        circleLayer.lineWidth = 10.0;
+        
+        // Don't draw the circle initially
+        circleLayer.strokeEnd = 0.0
+        
+        // Add the circleLayer to the view's layer's sublayers
+        self.layer.addSublayer(circleLayer)
     }
     
     private func frameWithInset() -> CGRect {
@@ -165,6 +184,14 @@ public class StarButton: UIButton {
     
     private func notFavorite(){
         println("NOTFAV func")
+        
+        //circleLayer.removeAllAnimations()
+        
+        
+        //circleLayer.removeAnimationForKey("animateCircle")
+        
+    
+
         let starFillColor = CABasicAnimation(keyPath: "fillColor")
         starFillColor.toValue = notFavoriteColor.CGColor
         starFillColor.duration = 0.4
@@ -210,7 +237,7 @@ public class StarButton: UIButton {
         fillCircleAnimation.fillMode =  kCAFillModeForwards
         fillCircleAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
         
-        //fillRingShape.addAnimation(fillCircleAnimation, forKey: "fill circle Animation")
+        //fillRingShape.addAnimation(fillCircleAnimation, forKey: "fill circle Animation") //
         
         let favFill = CABasicAnimation(keyPath: "transform.scale")
         favFill.fromValue = 0.8
@@ -221,8 +248,8 @@ public class StarButton: UIButton {
         
         fillRingShape.addAnimation(favFill, forKey: favoriteKey)
         
-        //fillRingShape.addAnimation(fillCircle, forKey: nil)
-        //fillRingShape.opacity = 1
+        //fillRingShape.addAnimation(fillCircle, forKey: nil) //
+        //fillRingShape.opacity = 1 //
         
         let outerCircle = CABasicAnimation(keyPath: "opacity")
         outerCircle.toValue = 0.5
@@ -230,6 +257,31 @@ public class StarButton: UIButton {
         
         outerRingShape.addAnimation(outerCircle, forKey: nil)
         outerRingShape.opacity = 0.4
+        
+        
+        
+        // We want to animate the strokeEnd property of the circleLayer
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        
+        // Set the animation duration appropriately
+        animation.duration = 1.0
+        
+        // Animate from 0 (no circle) to 1 (full circle)
+        animation.fromValue = 0.0
+        animation.toValue = 0.0
+        
+        // Do a linear animation (i.e. the speed of the animation stays the same)
+        animation.removedOnCompletion = false
+        animation.fillMode = kCAFillModeForwards
+        
+        // Set the circleLayer's strokeEnd property to 1.0 now so that it's the
+        // right value when the animation ends.
+        //circleLayer.strokeEnd = 1.0
+        
+        
+        // Do the actual animation
+        circleLayer.addAnimation(animation, forKey: favoriteKey)
+        
         
     }
     
@@ -295,7 +347,7 @@ public class StarButton: UIButton {
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotateAnimation.fromValue = 0.0
         rotateAnimation.toValue = CGFloat(-(M_PI * 0.1))
-        rotateAnimation.duration = 0.2
+        rotateAnimation.duration = 3.8
         rotateAnimation.removedOnCompletion = false
         rotateAnimation.fillMode =  kCAFillModeForwards
 
@@ -312,9 +364,53 @@ public class StarButton: UIButton {
         fillRingShape.addAnimation(favoriteFillOpacity, forKey: "Show fill circle")
         //fillRingShape.addAnimation(fillCircleAnimation, forKey: "fill circle Animation")
         fillRingShape.transform = CATransform3DIdentity
+        
+        
+        
+        
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
+
+    }
+
+    func update() {
+        
+        if(isFavorite){
+        // We want to animate the strokeEnd property of the circleLayer
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        
+        // Set the animation duration appropriately
+        animation.duration = 1.0
+        
+        // Animate from 0 (no circle) to 1 (full circle)
+        animation.fromValue = val
+        animation.toValue = val + 0.1
+        
+        val += 0.1
+        
+        // Do a linear animation (i.e. the speed of the animation stays the same)
+        animation.removedOnCompletion = false
+        animation.fillMode = kCAFillModeForwards
+        
+        // Set the circleLayer's strokeEnd property to 1.0 now so that it's the
+        // right value when the animation ends.
+        //circleLayer.strokeEnd = 1.0
+        
+        
+        // Do the actual animation
+        circleLayer.addAnimation(animation, forKey: favoriteKey)
+            
+        } else {
+            
+            timer.invalidate()
+            
+            val = 0.0
+        }
+    
     }
     
     override public func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
+        println("didstop")
         if let key = anim.valueForKey(starKey) as? String {
             switch(key) {
             case (favoriteKey):
@@ -355,16 +451,17 @@ public class StarButton: UIButton {
         
         starShape.addAnimation(starKeyFrames, forKey: nil)
         starShape.transform = CATransform3DIdentity
+        
     }
     
     private func prepareForFavorite() {
         
         println("prepareForFavorite")
 
-        /*executeWithoutActions {
+        executeWithoutActions {
             self.fillRingShape.opacity = 1
             self.fillRingShape.transform = CATransform3DMakeScale(1, 1, 1)
-        }*/
+        }
     }
     
     private func executeWithoutActions(closure: () -> ()) {
