@@ -347,7 +347,7 @@ public class StarButton: UIButton {
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotateAnimation.fromValue = 0.0
         rotateAnimation.toValue = CGFloat(-(M_PI * 0.1))
-        rotateAnimation.duration = 3.8
+        rotateAnimation.duration = 0.4
         rotateAnimation.removedOnCompletion = false
         rotateAnimation.fillMode =  kCAFillModeForwards
 
