@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>61BFE4A3-27D4-4DE3-8A98-40B7668FE95E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ConnectedColors</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>827FF2BD444E60034C6CF0CA79BC1177B9A24095</key>
+		<string>https://github.com/MegaphonePraktikum/megaphoneIOS.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ConnectedColors/ConnectedColors.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>827FF2BD444E60034C6CF0CA79BC1177B9A24095</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/MegaphonePraktikum/megaphoneIOS.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>827FF2BD444E60034C6CF0CA79BC1177B9A24095</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>827FF2BD444E60034C6CF0CA79BC1177B9A24095</string>
+			<key>IDESourceControlWCCName</key>
+			<string>GIT</string>
+		</dict>
+	</array>
+</dict>
+</plist>
