@@ -18,9 +18,8 @@ class Manager : NSObject {
     private let serviceAdvertiser : MCNearbyServiceAdvertiser
     private let serviceBrowser : MCNearbyServiceBrowser
     private let pingData : NSMutableDictionary
-    //private let pingTimer : PingTimer = PingTimer()//PingTimer(bla: "bla")
-    lazy var pingTimer = NSTimer()
     
+    private var pingTimer : NSTimer? = nil
     private var soundFile : NSData?
     private var parentPeer = MCPeerID()
     private var maxPing : Double
@@ -142,9 +141,9 @@ class Manager : NSObject {
     
     func sendPing() {
         
-        if let peerID: MCPeerID = pingTimer.userInfo as? MCPeerID {
+        for peerID : MCPeerID in session.connectedPeers as! [MCPeerID] {
             NSLog("%@", "trySendPingTo: \(peerID)")
-
+            
             let message : Message = Message(type: "PING")
             
             if session.connectedPeers.count > 0 {
@@ -158,7 +157,6 @@ class Manager : NSObject {
                 }
             }
         }
-
     }
     
     func sendPong(peerID : MCPeerID) {
@@ -248,11 +246,6 @@ class Manager : NSObject {
         }
         return true;
     }
-    
-    func sendP(){
-        println("sendPing")
-    }
-    
 }
 
 extension Manager : MCNearbyServiceAdvertiserDelegate {
@@ -326,16 +319,17 @@ extension Manager : MCSessionDelegate {
                 NSLog("%@", "isChildSession")
                 pingData[peerID] = NSMutableDictionary()
                 //sendPing(peerID)
-                //pingTimer.start()
-                NSLog("%@", "pingTimer start")
-                self.pingTimer = NSTimer(timeInterval: 5.0,
-                    target: self,
-                    selector: Selector("sendPing"),
-                    userInfo: peerID,
-                    repeats: true)
-                NSRunLoop.mainRunLoop().addTimer(self.pingTimer, forMode: NSRunLoopCommonModes)
-                
-                NSNotificationCenter.defaultCenter().postNotificationName("StopTimerNotification", object: nil)
+                if let timer = pingTimer {
+                    println("pingTimer already initialized")
+                }
+                else {
+                    self.pingTimer = NSTimer(timeInterval: 10.0,
+                        target: self,
+                        selector: Selector("sendPing"),
+                        userInfo: nil,
+                        repeats: true)
+                    NSRunLoop.mainRunLoop().addTimer(self.pingTimer!, forMode: NSRunLoopCommonModes)
+                }
 
                 if(session.connectedPeers.count >= maxPeers){
                     serviceBrowser.stopBrowsingForPeers()
@@ -346,7 +340,9 @@ extension Manager : MCSessionDelegate {
             
             
         }else if(str=="NotConnected"){
-            pingTimer.invalidate()
+            if let timer = pingTimer {
+                pingTimer!.invalidate()
+            }
             if(parentSession.connectedPeers.count == 0 && session.connectedPeers.count == 0){
                 serviceAdvertiser.startAdvertisingPeer()
             }
