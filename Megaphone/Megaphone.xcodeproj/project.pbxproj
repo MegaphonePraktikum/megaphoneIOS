@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		840D26F11B441611005203FC /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D26F01B441611005203FC /* Message.swift */; };
+		9C08CDDF1B4C80400061E12C /* 1436323562_device_smart-phones_iphones_horizontal_.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C08CDDE1B4C80400061E12C /* 1436323562_device_smart-phones_iphones_horizontal_.png */; };
 		9C284D8F1B44041500C5706E /* StarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8C1B44041500C5706E /* StarButton.swift */; };
 		9C284D901B44041500C5706E /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8D1B44041500C5706E /* Paths.swift */; };
 		9C284D911B44041500C5706E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8E1B44041500C5706E /* Extensions.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		840D26F01B441611005203FC /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		9C08CDDE1B4C80400061E12C /* 1436323562_device_smart-phones_iphones_horizontal_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1436323562_device_smart-phones_iphones_horizontal_.png"; sourceTree = "<group>"; };
 		9C284D8C1B44041500C5706E /* StarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarButton.swift; sourceTree = "<group>"; };
 		9C284D8D1B44041500C5706E /* Paths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
 		9C284D8E1B44041500C5706E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		BF52C0A11AEFE4700042F9E8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9C08CDDE1B4C80400061E12C /* 1436323562_device_smart-phones_iphones_horizontal_.png */,
 				9C8F958F1B442DB900FAD06A /* bg3.jpg */,
 				9C8F958D1B442C2100FAD06A /* bg2.jpg */,
 				9C8F958B1B441A5E00FAD06A /* bg.jpg */,
@@ -239,6 +242,7 @@
 				9C6018B01B34A0B200C49BC6 /* test.mp3 in Resources */,
 				BF52C0AE1AEFE4700042F9E8 /* LaunchScreen.xib in Resources */,
 				BF52C0AB1AEFE4700042F9E8 /* Images.xcassets in Resources */,
+				9C08CDDF1B4C80400061E12C /* 1436323562_device_smart-phones_iphones_horizontal_.png in Resources */,
 				9C8F958C1B441A5E00FAD06A /* bg.jpg in Resources */,
 				9CA2F7ED1B346876006E16CA /* sirenpolice2.wav in Resources */,
 			);
@@ -395,7 +399,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/Megaphone/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Megaphone;
 				PROVISIONING_PROFILE = "";
@@ -410,7 +414,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/Megaphone/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Megaphone;
 				PROVISIONING_PROFILE = "";

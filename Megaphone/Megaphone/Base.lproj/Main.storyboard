@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ycg-LQ-0SA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ycg-LQ-0SA">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -45,7 +44,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pzC-fO-hxd">
-                                <rect key="frame" x="199" y="465" width="30" height="30"/>
+                                <rect key="frame" x="199" y="484" width="30" height="30"/>
                                 <state key="normal" title="Play">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -54,7 +53,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilX-he-hSb">
-                                <rect key="frame" x="66" y="394" width="90" height="30"/>
+                                <rect key="frame" x="66" y="413" width="90" height="30"/>
                                 <state key="normal" title="StartBrowser">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -63,7 +62,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwl-bz-J0S">
-                                <rect key="frame" x="16" y="394" width="33" height="30"/>
+                                <rect key="frame" x="16" y="413" width="33" height="30"/>
                                 <state key="normal" title="File1">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -72,14 +71,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Connections:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNT-9a-C7e">
-                                <rect key="frame" x="16" y="365" width="102" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="16" y="384" width="102" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sdy-fL-N12"/>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pji-Bm-TA5">
-                                <rect key="frame" x="16" y="465" width="50" height="30"/>
+                                <rect key="frame" x="16" y="484" width="50" height="30"/>
                                 <state key="normal" title="Record">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -94,7 +93,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lzP-gl-2a5">
-                                <rect key="frame" x="116" y="465" width="33" height="30"/>
+                                <rect key="frame" x="116" y="484" width="33" height="30"/>
                                 <state key="normal" title="Stop">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -111,17 +110,42 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <imageView userInteractionEnabled="NO" alpha="0.74999999999999978" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="1436323562_device_smart-phones_iphones_horizontal_.png" translatesAutoresizingMaskIntoConstraints="NO" id="T1L-pB-UPU">
+                                <rect key="frame" x="279" y="311" width="22" height="38"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Session-Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ChV-cv-hGB">
+                                <rect key="frame" x="22" y="311" width="127" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aw3-nR-lWE">
+                                <rect key="frame" x="245" y="311" width="26" height="34"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Master" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qY-qN-KTb">
+                                <rect key="frame" x="22" y="335" width="67" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="4PW-Yi-Sp6" firstAttribute="centerY" secondItem="CX5-1C-N4L" secondAttribute="centerY" id="5Tf-Td-fAP"/>
+                            <constraint firstItem="ChV-cv-hGB" firstAttribute="leading" secondItem="CX5-1C-N4L" secondAttribute="leading" constant="14" id="5fb-h6-qYL"/>
+                            <constraint firstItem="5qY-qN-KTb" firstAttribute="leading" secondItem="CX5-1C-N4L" secondAttribute="leading" constant="14" id="C08-5J-qlP"/>
                             <constraint firstItem="4PW-Yi-Sp6" firstAttribute="centerX" secondItem="CX5-1C-N4L" secondAttribute="centerX" id="IM8-Cl-Wx8"/>
+                            <constraint firstItem="5qY-qN-KTb" firstAttribute="top" secondItem="ChV-cv-hGB" secondAttribute="bottom" constant="3" id="Saa-RL-oCM"/>
                             <constraint firstItem="CX5-1C-N4L" firstAttribute="top" secondItem="QIl-vK-9Or" secondAttribute="bottom" id="Y8W-tn-1dU"/>
                             <constraint firstItem="rfY-mg-v4r" firstAttribute="top" secondItem="QIl-vK-9Or" secondAttribute="bottom" id="eNX-FY-JCM"/>
                             <constraint firstItem="rfY-mg-v4r" firstAttribute="width" secondItem="8I6-do-OJY" secondAttribute="width" id="fA6-9f-2ct"/>
                             <constraint firstItem="4PW-Yi-Sp6" firstAttribute="width" secondItem="CX5-1C-N4L" secondAttribute="height" multiplier="15:23" id="gzP-XY-0mQ"/>
                             <constraint firstItem="CX5-1C-N4L" firstAttribute="width" secondItem="8I6-do-OJY" secondAttribute="width" id="hIV-xa-qYc"/>
                             <constraint firstAttribute="centerX" secondItem="CX5-1C-N4L" secondAttribute="centerX" id="qZY-mV-YE6"/>
+                            <constraint firstItem="ChV-cv-hGB" firstAttribute="top" secondItem="CX5-1C-N4L" secondAttribute="bottom" constant="17" id="qsQ-Ne-0Yx"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Megaphone" id="4b8-Ez-evB"/>
@@ -129,6 +153,7 @@
                     <connections>
                         <outlet property="bgV" destination="sdy-fL-N12" id="xDH-M8-LdD"/>
                         <outlet property="connectionsLabel" destination="WNT-9a-C7e" id="wjl-SG-tAc"/>
+                        <outlet property="instructionLabel" destination="tcf-WH-K8L" id="vrK-OY-CxU"/>
                         <outlet property="playButton" destination="pzC-fO-hxd" id="BZM-RV-1Gm"/>
                         <outlet property="recButton" destination="4PW-Yi-Sp6" id="dMS-9J-BIo"/>
                         <outlet property="recordButton" destination="pji-Bm-TA5" id="4vK-Pm-Ib0"/>
@@ -161,6 +186,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="1436323562_device_smart-phones_iphones_horizontal_.png" width="76" height="128"/>
         <image name="bg.jpg" width="1200" height="800"/>
     </resources>
 </document>
