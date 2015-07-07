@@ -107,9 +107,9 @@
 				9C284D8D1B44041500C5706E /* Paths.swift */,
 				9C284D8E1B44041500C5706E /* Extensions.swift */,
 				BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */,
+				840D26F01B441611005203FC /* Message.swift */,
 				BF52C0C51AEFEAEA0042F9E8 /* Manager.swift */,
 				BF52C0A51AEFE4700042F9E8 /* ViewController.swift */,
-				840D26F01B441611005203FC /* Message.swift */,
 				BF52C0A71AEFE4700042F9E8 /* Main.storyboard */,
 				BF52C0AA1AEFE4700042F9E8 /* Images.xcassets */,
 				BF52C0AC1AEFE4700042F9E8 /* LaunchScreen.xib */,
@@ -430,7 +430,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = ConnectedColorsTests/Info.plist;
+				INFOPLIST_FILE = MegaphoneTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = MegaphoneTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ConnectedColors.app/ConnectedColors";
@@ -445,7 +445,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = ConnectedColorsTests/Info.plist;
+				INFOPLIST_FILE = MegaphoneTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = MegaphoneTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ConnectedColors.app/ConnectedColors";

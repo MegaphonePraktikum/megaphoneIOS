@@ -51,11 +51,7 @@ class ViewController: UIViewController {
         
         recButton.addTarget(self, action: "startRecord:", forControlEvents: UIControlEvents.TouchDown)
         
-        recButton.addTarget(self, action: "stopRecord:", forControlEvents: UIControlEvents.TouchUpInside|UIControlEvents.TouchUpOutside)
-
-    
-
-        
+        recButton.addTarget(self, action: "stopRecord:", forControlEvents: UIControlEvents.TouchUpInside|UIControlEvents.TouchUpOutside)    
 
     }
 

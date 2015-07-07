@@ -4,7 +4,6 @@ import Foundation
 import MultipeerConnectivity
 
 protocol ManagerDelegate {
-    
     func connectedDevicesChanged(manager : Manager, connectedDevices: [String])
     func pingChanged(manager : Manager, connectedDevices: [String])
     func playFile(manager : Manager, data: NSData, delayMS : Double)    
@@ -19,6 +18,8 @@ class Manager : NSObject {
     private let serviceAdvertiser : MCNearbyServiceAdvertiser
     private let serviceBrowser : MCNearbyServiceBrowser
     private let pingData : NSMutableDictionary
+    //private let pingTimer : PingTimer = PingTimer()//PingTimer(bla: "bla")
+    lazy var pingTimer = NSTimer()
     
     private var soundFile : NSData?
     private var parentPeer = MCPeerID()
@@ -38,7 +39,7 @@ class Manager : NSObject {
         self.maxPing = 0.0
         
         self.isSender = false
-
+        
         super.init()
         
         self.serviceAdvertiser.delegate = self
@@ -139,6 +140,27 @@ class Manager : NSObject {
         
     }
     
+    func sendPing() {
+        
+        if let peerID: MCPeerID = pingTimer.userInfo as? MCPeerID {
+            NSLog("%@", "trySendPingTo: \(peerID)")
+
+            let message : Message = Message(type: "PING")
+            
+            if session.connectedPeers.count > 0 {
+                var error : NSError?
+                if self.session.sendData( message.toNSData(), toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error) {
+                    NSLog("%@", "sentPingTo: \(peerID)")
+                    var peerData = pingData[peerID] as! NSMutableDictionary;
+                    peerData["pingSent"] = NSDate.timeIntervalSinceReferenceDate();
+                }else{
+                    NSLog("%@", "\(error)")
+                }
+            }
+        }
+
+    }
+    
     func sendPong(peerID : MCPeerID) {
         NSLog("%@", "trySendPongTo: \(peerID)")
         
@@ -227,6 +249,10 @@ class Manager : NSObject {
         return true;
     }
     
+    func sendP(){
+        println("sendPing")
+    }
+    
 }
 
 extension Manager : MCNearbyServiceAdvertiserDelegate {
@@ -299,7 +325,18 @@ extension Manager : MCSessionDelegate {
             }else{
                 NSLog("%@", "isChildSession")
                 pingData[peerID] = NSMutableDictionary()
-                sendPing(peerID)
+                //sendPing(peerID)
+                //pingTimer.start()
+                NSLog("%@", "pingTimer start")
+                self.pingTimer = NSTimer(timeInterval: 5.0,
+                    target: self,
+                    selector: Selector("sendPing"),
+                    userInfo: peerID,
+                    repeats: true)
+                NSRunLoop.mainRunLoop().addTimer(self.pingTimer, forMode: NSRunLoopCommonModes)
+                
+                NSNotificationCenter.defaultCenter().postNotificationName("StopTimerNotification", object: nil)
+
                 if(session.connectedPeers.count >= maxPeers){
                     serviceBrowser.stopBrowsingForPeers()
                 }else{
@@ -309,6 +346,7 @@ extension Manager : MCSessionDelegate {
             
             
         }else if(str=="NotConnected"){
+            pingTimer.invalidate()
             if(parentSession.connectedPeers.count == 0 && session.connectedPeers.count == 0){
                 serviceAdvertiser.startAdvertisingPeer()
             }
