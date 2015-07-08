@@ -34,11 +34,15 @@ class ViewController: UIViewController {
     
     @IBOutlet var connectionsLabel: UILabel!
     
+    @IBOutlet var instructionLabel: UILabel!
+    
     var bgImage : UIView?
 
     @IBOutlet var bgV: UIImageView!
     
     let screenSize: CGRect = UIScreen.mainScreen().bounds
+
+    var recTimer : NSTimer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,6 +131,8 @@ class ViewController: UIViewController {
     
     func play() {
         
+        instructionLabel.text = "Hold down to record"
+        
         println("playing")
         var error: NSError?
         
@@ -188,6 +194,7 @@ class ViewController: UIViewController {
             recorder.meteringEnabled = true
             recorder.prepareToRecord() // creates/overwrites the file at soundFileURL
         }
+        
     }
     
     func recordWithPermission(setup:Bool) {
@@ -326,10 +333,89 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
     
     func startRecord(sender: StarButton) {
         sender.isFavorite = true
+        instructionLabel.text = "Record your message"
+        
+        if player != nil && player.playing {
+            player.stop()
+        }
+        
+        if recorder == nil {
+            println("recording. recorder nil")
+            recordButton.setTitle("Pause", forState:.Normal)
+            playButton.enabled = false
+            stopButton.enabled = true
+            recordWithPermission(true)
+            return
+        }
+        
+        if recorder != nil && recorder.recording {
+            println("pausing")
+            recorder.pause()
+            recordButton.setTitle("Continue", forState:.Normal)
+            
+        } else {
+            println("recording")
+            recordButton.setTitle("Pause", forState:.Normal)
+            playButton.enabled = false
+            stopButton.enabled = true
+            //            recorder.record()
+            recordWithPermission(false)
+        }
+        
+        recTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("stop"), userInfo: nil, repeats: true)
+    }
+    
+    func stop(){
+
+        println("Test");
+        instructionLabel.text = "Message is pending..."
+        
+        recorder?.stop()
+        player?.stop()
+        
+        recordButton.setTitle("Record", forState:.Normal)
+        let session:AVAudioSession = AVAudioSession.sharedInstance()
+        var error: NSError?
+        if !session.setActive(false, error: &error) {
+            println("could not make session inactive")
+            if let e = error {
+                println(e.localizedDescription)
+                return
+            }
+        }
+        playButton.enabled = true
+        stopButton.enabled = false
+        recordButton.enabled = true
+        recorder = nil
+        
+
     }
     
     func stopRecord(sender: StarButton) {
         sender.isFavorite = false
+        instructionLabel.text = "Message is pending..."
+        
+        recorder?.stop()
+        player?.stop()
+        
+        recordButton.setTitle("Record", forState:.Normal)
+        let session:AVAudioSession = AVAudioSession.sharedInstance()
+        var error: NSError?
+        if !session.setActive(false, error: &error) {
+            println("could not make session inactive")
+            if let e = error {
+                println(e.localizedDescription)
+                return
+            }
+        }
+        playButton.enabled = true
+        stopButton.enabled = false
+        recordButton.enabled = true
+        recorder = nil
+        
+        megaphoneService.sendFile(soundFileURL: soundFileURL!)
+
+
     }
     
 }
