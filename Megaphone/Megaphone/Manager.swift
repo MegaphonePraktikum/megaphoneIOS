@@ -1,5 +1,6 @@
 
 
+
 import Foundation
 import MultipeerConnectivity
 
@@ -86,6 +87,27 @@ class Manager : NSObject {
         
         var audioData: NSData? = NSData(contentsOfURL: url!)
         return audioData!;
+    }
+    
+    
+    func sendPlaySavedFile(tag : String, maxPing : Double? = nil) {
+        NSLog("%@", "sendPlaySavedFile: \(tag) ")
+        
+        if session.connectedPeers.count > 0 {
+            var message : Message
+            if let max = maxPing {
+                message = Message(type: tag, data : NSKeyedArchiver.archivedDataWithRootObject(pingData), maxPing : maxPing!)
+            }
+            else {
+                message = Message(type: tag, data : NSKeyedArchiver.archivedDataWithRootObject(pingData), maxPing : self.maxPing)
+            }
+            var error : NSError?
+            if self.session.sendData( message.toNSData(), toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error) {
+            }else{
+                NSLog("%@", "\(error)")
+            }
+        }
+        
     }
     
     func sendFile(soundFileURL : NSURL? = nil) {
@@ -433,6 +455,18 @@ extension Manager : MCSessionDelegate {
                 self.delegate?.playFile(self, data: sound, delayMS: delayPing!-myPing)
                 sendPlay(delayPing!-myPing)
             }
+        case "111", "222", "333" :
+            var delayPing = message.maxPing
+            var peerDict = NSKeyedUnarchiver.unarchiveObjectWithData(message.data!) as! NSMutableDictionary
+            println("peerDict \(peerDict)")
+            var peerData = peerDict[myPeerId] as! NSMutableDictionary
+            println("peerData \(peerData)")
+            var myPing : Double = peerData["latency"] as! Double - self.maxPing
+            println("myPing \(myPing)")
+            let sound : NSData = setupAudioPlayerWithFile(message.type, type:"wav")
+            self.delegate?.playFile(self, data: sound, delayMS: delayPing!-myPing)
+            sendPlaySavedFile(message.type, maxPing: delayPing!-myPing)
+            
         default:
             //Errormessage
             NSLog("%@", "Error in didReceiveData")
@@ -450,6 +484,10 @@ extension Manager : MCSessionDelegate {
     
     func session(session: MCSession!, didStartReceivingResourceWithName resourceName: String!, fromPeer peerID: MCPeerID!, withProgress progress: NSProgress!) {
         NSLog("%@", "didStartReceivingResourceWithName")
+    }
+    
+    func session(_ session: MCSession!, didReceiveCertificate certificate: [AnyObject]!, romPeer peerID: MCPeerID!, certificateHandler certificateHandler: ((Bool) -> Void)!) {
+        certificateHandler(true)
     }
     
 }

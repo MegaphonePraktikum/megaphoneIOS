@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ycg-LQ-0SA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ycg-LQ-0SA">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Megaphone-->
@@ -71,7 +73,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Connections:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNT-9a-C7e">
-                                <rect key="frame" x="16" y="384" width="102" height="21"/>
+                                <rect key="frame" x="16" y="384" width="296" height="21"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -86,12 +88,6 @@
                                     <action selector="record:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="ZeX-wr-CBO"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qL6-AS-ePo">
-                                <rect key="frame" x="16" y="527" width="43" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lzP-gl-2a5">
                                 <rect key="frame" x="116" y="484" width="33" height="30"/>
                                 <state key="normal" title="Stop">
@@ -131,19 +127,52 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" tag="222" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qcj-Uk-nph">
+                                <rect key="frame" x="122" y="538" width="50" height="50"/>
+                                <state key="normal" title="2">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playFileTapped:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="31e-XI-xj6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="111" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="isf-vZ-R41">
+                                <rect key="frame" x="0.0" y="522" width="50" height="50"/>
+                                <state key="normal" title="1">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playFileTapped:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="giQ-ch-AF1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="333" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pnP-WV-O3h">
+                                <rect key="frame" x="270" y="518" width="50" height="50"/>
+                                <state key="normal" title="3">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playFileTapped:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="KR4-iy-pKx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="4PW-Yi-Sp6" firstAttribute="centerY" secondItem="CX5-1C-N4L" secondAttribute="centerY" id="5Tf-Td-fAP"/>
                             <constraint firstItem="ChV-cv-hGB" firstAttribute="leading" secondItem="CX5-1C-N4L" secondAttribute="leading" constant="14" id="5fb-h6-qYL"/>
                             <constraint firstItem="5qY-qN-KTb" firstAttribute="leading" secondItem="CX5-1C-N4L" secondAttribute="leading" constant="14" id="C08-5J-qlP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pnP-WV-O3h" secondAttribute="trailing" constant="-16" id="I6q-Qr-zHw"/>
                             <constraint firstItem="4PW-Yi-Sp6" firstAttribute="centerX" secondItem="CX5-1C-N4L" secondAttribute="centerX" id="IM8-Cl-Wx8"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="isf-vZ-R41" secondAttribute="bottom" id="JhF-h1-Gqv"/>
                             <constraint firstItem="5qY-qN-KTb" firstAttribute="top" secondItem="ChV-cv-hGB" secondAttribute="bottom" constant="3" id="Saa-RL-oCM"/>
+                            <constraint firstAttribute="centerX" secondItem="Qcj-Uk-nph" secondAttribute="centerX" id="Sxw-CS-TAu"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="Qcj-Uk-nph" secondAttribute="bottom" id="Wdz-Nd-dIT"/>
                             <constraint firstItem="CX5-1C-N4L" firstAttribute="top" secondItem="QIl-vK-9Or" secondAttribute="bottom" id="Y8W-tn-1dU"/>
+                            <constraint firstItem="85Y-Vt-2l0" firstAttribute="top" secondItem="pnP-WV-O3h" secondAttribute="bottom" id="bQe-T7-kZB"/>
                             <constraint firstItem="rfY-mg-v4r" firstAttribute="top" secondItem="QIl-vK-9Or" secondAttribute="bottom" id="eNX-FY-JCM"/>
                             <constraint firstItem="rfY-mg-v4r" firstAttribute="width" secondItem="8I6-do-OJY" secondAttribute="width" id="fA6-9f-2ct"/>
                             <constraint firstItem="4PW-Yi-Sp6" firstAttribute="width" secondItem="CX5-1C-N4L" secondAttribute="height" multiplier="15:23" id="gzP-XY-0mQ"/>
                             <constraint firstItem="CX5-1C-N4L" firstAttribute="width" secondItem="8I6-do-OJY" secondAttribute="width" id="hIV-xa-qYc"/>
+                            <constraint firstItem="isf-vZ-R41" firstAttribute="leading" secondItem="8I6-do-OJY" secondAttribute="leadingMargin" constant="-16" id="myN-Hp-yUk"/>
                             <constraint firstAttribute="centerX" secondItem="CX5-1C-N4L" secondAttribute="centerX" id="qZY-mV-YE6"/>
                             <constraint firstItem="ChV-cv-hGB" firstAttribute="top" secondItem="CX5-1C-N4L" secondAttribute="bottom" constant="17" id="qsQ-Ne-0Yx"/>
                         </constraints>
@@ -157,7 +186,6 @@
                         <outlet property="playButton" destination="pzC-fO-hxd" id="BZM-RV-1Gm"/>
                         <outlet property="recButton" destination="4PW-Yi-Sp6" id="dMS-9J-BIo"/>
                         <outlet property="recordButton" destination="pji-Bm-TA5" id="4vK-Pm-Ib0"/>
-                        <outlet property="statusLabel" destination="qL6-AS-ePo" id="n7C-pg-9uN"/>
                         <outlet property="stopButton" destination="lzP-gl-2a5" id="d1N-Jx-8JJ"/>
                     </connections>
                 </viewController>

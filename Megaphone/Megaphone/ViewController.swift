@@ -1,5 +1,6 @@
 
 
+
 import UIKit
 import AVFoundation
 
@@ -9,7 +10,9 @@ class ViewController: UIViewController {
     var documentsPath = NSHomeDirectory() + "/Documents/"
 
     let megaphoneService = Manager()
-    var buttonBeep = AVAudioPlayer()
+    var buttonSound1 = AVAudioPlayer()
+    var buttonSound2 = AVAudioPlayer()
+    var buttonSound3 = AVAudioPlayer()
     var fileplayer = AVAudioPlayer()
         
     var recorder: AVAudioRecorder!
@@ -35,6 +38,8 @@ class ViewController: UIViewController {
     @IBOutlet var connectionsLabel: UILabel!
     
     @IBOutlet var instructionLabel: UILabel!
+    
+    @IBOutlet weak var file2: UIButton!
     
     var bgImage : UIView?
 
@@ -63,6 +68,9 @@ class ViewController: UIViewController {
         megaphoneService.sendFile()
     }
     
+    @IBAction func playFileTapped(sender: UIButton) {
+        megaphoneService.sendPlaySavedFile(String(sender.tag))
+    }
     
     @IBAction func startBrowser(sender: UIButton) {
         megaphoneService.startBrowser()
