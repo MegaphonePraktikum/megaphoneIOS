@@ -318,12 +318,12 @@ extension Manager : MCSessionDelegate {
             }else{
                 NSLog("%@", "isChildSession")
                 pingData[peerID] = NSMutableDictionary()
-                //sendPing(peerID)
+                sendPing(peerID)
                 if let timer = pingTimer {
                     println("pingTimer already initialized")
                 }
                 else {
-                    self.pingTimer = NSTimer(timeInterval: 10.0,
+                    self.pingTimer = NSTimer(timeInterval: 100.0,
                         target: self,
                         selector: Selector("sendPing"),
                         userInfo: nil,
