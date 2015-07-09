@@ -6,22 +6,13 @@ import AVFoundation
 
 class ViewController: UIViewController {
 
-    
-    var documentsPath = NSHomeDirectory() + "/Documents/"
-
     let megaphoneService = Manager()
-    var buttonSound1 = AVAudioPlayer()
-    var buttonSound2 = AVAudioPlayer()
-    var buttonSound3 = AVAudioPlayer()
+
     var fileplayer = AVAudioPlayer()
         
     var recorder: AVAudioRecorder!
     
     var player : AVAudioPlayer!
-    
-    var soundFileURL:NSURL?
-    
-    var soundFilePath:NSString?
     
     @IBOutlet var recordButton: UIButton!
     
@@ -39,8 +30,6 @@ class ViewController: UIViewController {
     
     @IBOutlet var instructionLabel: UILabel!
     
-    @IBOutlet weak var file2: UIButton!
-    
     var bgImage : UIView?
 
     @IBOutlet var bgV: UIImageView!
@@ -55,7 +44,7 @@ class ViewController: UIViewController {
         
         stopButton.enabled = false
         playButton.enabled = false
-        setSessionPlayback()
+        Recorder.setSessionPlayback()
         askForNotifications()
         
         recButton.addTarget(self, action: "startRecord:", forControlEvents: UIControlEvents.TouchDown)
@@ -89,7 +78,7 @@ class ViewController: UIViewController {
             recordButton.setTitle("Pause", forState:.Normal)
             playButton.enabled = false
             stopButton.enabled = true
-            recordWithPermission(true)
+            recorder = Recorder(setup: true, del: self)
             return
         }
         
@@ -104,7 +93,7 @@ class ViewController: UIViewController {
             playButton.enabled = false
             stopButton.enabled = true
             //            recorder.record()
-            recordWithPermission(false)
+            recorder = Recorder(setup: false, del: self)
         }
     }
     
@@ -115,21 +104,14 @@ class ViewController: UIViewController {
         player?.stop()
         
         recordButton.setTitle("Record", forState:.Normal)
-        let session:AVAudioSession = AVAudioSession.sharedInstance()
-        var error: NSError?
-        if !session.setActive(false, error: &error) {
-            println("could not make session inactive")
-            if let e = error {
-                println(e.localizedDescription)
-                return
-            }
-        }
+        Recorder.setAudioSessionInActive()
         playButton.enabled = true
         stopButton.enabled = false
         recordButton.enabled = true
+        megaphoneService.sendFile(soundFileURL: recorder.url!)
+
         recorder = nil
         
-        megaphoneService.sendFile(soundFileURL: soundFileURL!)
 
     }
     
@@ -152,7 +134,7 @@ class ViewController: UIViewController {
                 }
             }
         } else {
-            self.player = AVAudioPlayer(contentsOfURL: soundFileURL!, error: &error)
+            self.player = AVAudioPlayer(contentsOfURL: recorder.url!, error: &error)
             if player == nil {
                 if let e = error {
                     println(e.localizedDescription)
@@ -170,95 +152,8 @@ class ViewController: UIViewController {
     
     
     
-    func setupRecorder() {
-        var format = NSDateFormatter()
-        format.dateFormat="yyyy-MM-dd-HH-mm-ss"
-        var currentFileName = "recording.m4a"
-        println(currentFileName)
-        
-        var dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        var docsDir: AnyObject = dirPaths[0]
-        soundFilePath = docsDir.stringByAppendingPathComponent(currentFileName)
-        soundFileURL = NSURL(fileURLWithPath: soundFilePath! as String)
-        let filemanager = NSFileManager.defaultManager()
-        if filemanager.fileExistsAtPath(soundFilePath! as String) {
-            // probably won't happen. want to do something about it?
-            println("sound exists")
-        }
-        
-        var recordSettings:[NSObject: AnyObject] = [
-            AVFormatIDKey: kAudioFormatMPEG4AAC,
-            AVEncoderAudioQualityKey : AVAudioQuality.Min.rawValue,
-            AVEncoderBitRateKey : 32000,
-            AVNumberOfChannelsKey: 1,
-            AVSampleRateKey : 22050.0
-        ]
-        var error: NSError?
-        recorder = AVAudioRecorder(URL: soundFileURL!, settings: recordSettings, error: &error)
-        if let e = error {
-            println(e.localizedDescription)
-        } else {
-            recorder.delegate = self
-            recorder.meteringEnabled = true
-            recorder.prepareToRecord() // creates/overwrites the file at soundFileURL
-        }
-        
-    }
-    
-    func recordWithPermission(setup:Bool) {
-        let session:AVAudioSession = AVAudioSession.sharedInstance()
-        // ios 8 and later
-        if (session.respondsToSelector("requestRecordPermission:")) {
-            AVAudioSession.sharedInstance().requestRecordPermission({(granted: Bool)-> Void in
-                if granted {
-                    println("Permission to record granted")
-                    self.setSessionPlayAndRecord()
-                    if setup {
-                        self.setupRecorder()
-                    }
-                    self.recorder.record()
-                } else {
-                    println("Permission to record not granted")
-                }
-            })
-        } else {
-            println("requestRecordPermission unrecognized")
-        }
-    }
 
-    func setSessionPlayback() {
-        let session:AVAudioSession = AVAudioSession.sharedInstance()
-        var error: NSError?
-        if !session.setCategory(AVAudioSessionCategoryPlayback, error:&error) {
-            println("could not set session category")
-            if let e = error {
-                println(e.localizedDescription)
-            }
-        }
-        if !session.setActive(true, error: &error) {
-            println("could not make session active")
-            if let e = error {
-                println(e.localizedDescription)
-            }
-        }
-    }
-    
-    func setSessionPlayAndRecord() {
-        let session:AVAudioSession = AVAudioSession.sharedInstance()
-        var error: NSError?
-        if !session.setCategory(AVAudioSessionCategoryPlayAndRecord, error:&error) {
-            println("could not set session category")
-            if let e = error {
-                println(e.localizedDescription)
-            }
-        }
-        if !session.setActive(true, error: &error) {
-            println("could not make session active")
-            if let e = error {
-                println(e.localizedDescription)
-            }
-        }
-    }
+
     
     func askForNotifications() {
         
@@ -352,7 +247,7 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
             recordButton.setTitle("Pause", forState:.Normal)
             playButton.enabled = false
             stopButton.enabled = true
-            recordWithPermission(true)
+            recorder = Recorder(setup: true, del: self)
             return
         }
         
@@ -367,7 +262,7 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
             playButton.enabled = false
             stopButton.enabled = true
             //            recorder.record()
-            recordWithPermission(false)
+            recorder = Recorder(setup: false, del: self)
         }
         
         recTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("stop"), userInfo: nil, repeats: true)
@@ -382,15 +277,7 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
         player?.stop()
         
         recordButton.setTitle("Record", forState:.Normal)
-        let session:AVAudioSession = AVAudioSession.sharedInstance()
-        var error: NSError?
-        if !session.setActive(false, error: &error) {
-            println("could not make session inactive")
-            if let e = error {
-                println(e.localizedDescription)
-                return
-            }
-        }
+        Recorder.setAudioSessionInActive()
         playButton.enabled = true
         stopButton.enabled = false
         recordButton.enabled = true
@@ -407,21 +294,14 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
         player?.stop()
         
         recordButton.setTitle("Record", forState:.Normal)
-        let session:AVAudioSession = AVAudioSession.sharedInstance()
-        var error: NSError?
-        if !session.setActive(false, error: &error) {
-            println("could not make session inactive")
-            if let e = error {
-                println(e.localizedDescription)
-                return
-            }
-        }
+        Recorder.setAudioSessionInActive()
         playButton.enabled = true
         stopButton.enabled = false
         recordButton.enabled = true
+        megaphoneService.sendFile(soundFileURL: recorder.url!)
+
         recorder = nil
         
-        megaphoneService.sendFile(soundFileURL: soundFileURL!)
 
 
     }
