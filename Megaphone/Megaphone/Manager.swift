@@ -388,11 +388,7 @@ extension Manager : MCSessionDelegate {
                 }else{
                     serviceBrowser.startBrowsingForPeers()
                 }
-                
-                
             }
-            
-            
         }else if(str=="NotConnected"){
             if let timer = pingTimer {
                 pingTimer!.invalidate()
