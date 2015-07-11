@@ -10,6 +10,10 @@ protocol ManagerDelegate {
     func playFile(manager : Manager, data: NSData, delayMS : Double)    
 }
 
+protocol SessionDelegate {
+    func addSession(sessionName : NSString)
+}
+
 class Manager : NSObject {
     
     private let maxPeers : Int = 1
@@ -19,21 +23,27 @@ class Manager : NSObject {
     private let serviceAdvertiser : MCNearbyServiceAdvertiser
     private let serviceBrowser : MCNearbyServiceBrowser
     private let pingData : NSMutableDictionary
-    
+    private let peers : NSMutableDictionary
+
     private var pingTimer : NSTimer? = nil
     private var soundFile : NSData?
     private var parentPeer = MCPeerID()
     private var maxPing : Double
     private var isSender : Bool
+    private var sessionName: String = ""
     
     var delegate : ManagerDelegate?
+    var delegateSession : SessionDelegate?
     
     override init() {
+        NSLog("%@", "Manager init()")
+
         self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: ServiceType)
 
         self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: ServiceType)
         
         self.pingData = NSMutableDictionary()
+        self.peers = NSMutableDictionary()
         self.soundFile = NSData()
         
         self.maxPing = 0.0
@@ -54,21 +64,28 @@ class Manager : NSObject {
     }
     
     lazy var session: MCSession = {
+        NSLog("%@", "session \(self.myPeerId)");
         let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.None)
         session?.delegate = self
         return session
     }()
     
     lazy var parentSession: MCSession = {
+        NSLog("%@", "parentSession \(self.myPeerId)");
         let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.None)
         session?.delegate = self
         return session
     }()
     
-    func startBrowser(){
+    func startBrowser(sessionNameLabel : String){
+        self.sessionName = sessionNameLabel
         self.isSender = true
         self.serviceAdvertiser.stopAdvertisingPeer()
         self.serviceBrowser.startBrowsingForPeers()
+        for s in peers {
+            (s.value["session"] as! MCSession).disconnect()
+        }
+        peers.removeAllObjects()
     }
     
     func setupAudioPlayerWithFile(soundFileURL : NSURL) -> NSData {
@@ -268,6 +285,47 @@ class Manager : NSObject {
         }
         return true;
     }
+    
+    func acceptSessionInvite(sessionName : NSString) {
+        NSLog("%@", "acceptSessionInvite stopAdvertising: \(sessionName) \(peers.count) ")
+        self.serviceAdvertiser.stopAdvertisingPeer()
+        for p in peers{
+            println(p)
+
+        }
+        let data : NSMutableDictionary = peers[sessionName] as! NSMutableDictionary
+        self.parentPeer = data["peerID"] as! MCPeerID
+        self.parentSession = data["session"] as! MCSession
+        
+        
+        for p in peers {
+            if !(p.key as! NSString == sessionName) {
+                NSLog("%@", "removeObject: \(p.key)")
+                peers.removeObjectForKey(p.key)
+                let s = p.value["session"] as! MCSession
+                if !(s == parentSession) {
+                    NSLog("%@", "removed Object and disconnect\(p.key)")
+                    s.disconnect()
+                }
+
+            }
+            else {
+                NSLog("%@", "stayconnected: \(sessionName)")
+            }
+        }
+
+        /*let data: NSMutableDictionary = peers[sessionName] as! NSMutableDictionary
+        self.parentPeer = data["peerID"] as! MCPeerID
+        //let ih : ((Bool, MCSession!) -> Void)! = data["invitationHandler"] as! ((Bool, MCSession!) -> Void)!
+        //ih!(true, self.parentSession)
+        if(self.parentSession.connectedPeers.count > maxPeers){
+            NSLog("%@", "tryDisconnectBecauseMax")
+            self.parentSession.disconnect()
+        }else{
+            NSLog("%@", "stopAdvertising")
+            self.serviceAdvertiser.stopAdvertisingPeer()
+        }*/
+    }
 }
 
 extension Manager : MCNearbyServiceAdvertiserDelegate {
@@ -276,17 +334,35 @@ extension Manager : MCNearbyServiceAdvertiserDelegate {
         NSLog("%@", "didNotStartAdvertisingPeer: \(error)")
     }
     
+    
     func advertiser(advertiser: MCNearbyServiceAdvertiser!, didReceiveInvitationFromPeer peerID: MCPeerID!, withContext context: NSData!, invitationHandler: ((Bool, MCSession!) -> Void)!) {
         
-        NSLog("%@", "didReceiveInvitationFromPeer \(peerID)")
-        self.parentPeer = peerID
-        invitationHandler(true, self.parentSession)
+        NSLog("%@", "didReceiveInvitationFromPeer \(peerID)  sessionName \(NSString(data: context, encoding: NSUTF8StringEncoding))")
+        let sname : NSString = NSString(data: context, encoding: NSUTF8StringEncoding)!
+
+        let p : NSMutableDictionary = NSMutableDictionary()
+        NSLog("%@", "session \(self.myPeerId)");
+        let s = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.None)
+        s?.delegate = self
+        p["peerID"] = peerID
+        p["session"] = s
+        println(p)
+        peers[sname] = p
+        println(peers.count)
+        println(peers[sname])
+        
+        //self.parentPeer = peerID
+        //invitationHandler(true, self.parentSession)
+        invitationHandler(true, s)
+        
         if(self.parentSession.connectedPeers.count > maxPeers){
             NSLog("%@", "tryDisconnectBecauseMax")
             self.parentSession.disconnect()
         }else{
-            NSLog("%@", "stopAdvertising")
-            self.serviceAdvertiser.stopAdvertisingPeer()
+            //self.serviceAdvertiser.stopAdvertisingPeer()
+            NSLog("%@", "delegated accepted Session \(sname)")
+
+            self.delegateSession?.addSession(sname)
         }
         
     }
@@ -302,7 +378,7 @@ extension Manager : MCNearbyServiceBrowserDelegate {
     func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!) {
         NSLog("%@", "foundPeer: \(peerID)")
         NSLog("%@", "invitePeer: \(peerID)")
-        browser.invitePeer(peerID, toSession: self.session, withContext: nil, timeout: 10)
+        browser.invitePeer(peerID, toSession: self.session, withContext: self.sessionName.dataUsingEncoding(NSUTF8StringEncoding), timeout: 10)
     }
     
     func browser(browser: MCNearbyServiceBrowser!, lostPeer peerID: MCPeerID!) {
@@ -337,7 +413,7 @@ extension Manager : MCSessionDelegate {
                 }else{
                     serviceBrowser.stopBrowsingForPeers()
                 }
-            }else{
+            }else if(session == self.session) {
                 NSLog("%@", "isChildSession")
                 pingData[peerID] = NSMutableDictionary()
                 sendPing(peerID)
@@ -358,6 +434,9 @@ extension Manager : MCSessionDelegate {
                 }else{
                     serviceBrowser.startBrowsingForPeers()
                 }
+            }else {
+                NSLog("%@", "isSessionFromSessionList")
+                //serviceBrowser.startBrowsingForPeers()
             }
             
             

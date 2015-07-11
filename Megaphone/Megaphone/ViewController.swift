@@ -6,7 +6,8 @@ import AVFoundation
 
 class ViewController: UIViewController {
 
-    let megaphoneService = Manager()
+    //let megaphoneService = Manager()
+    let megaphoneService = AppDelegate.megaphoneService
 
     var fileplayer = AVAudioPlayer()
         
@@ -62,7 +63,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func startBrowser(sender: UIButton) {
-        megaphoneService.startBrowser()
+        megaphoneService.startBrowser("ghfhf")
     }
     
     
