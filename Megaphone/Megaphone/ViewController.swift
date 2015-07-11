@@ -31,6 +31,8 @@ class ViewController: UIViewController {
     
     @IBOutlet var instructionLabel: UILabel!
     
+    @IBOutlet var countLabel: UILabel!
+    
     var bgImage : UIView?
 
     @IBOutlet var bgV: UIImageView!
@@ -209,6 +211,14 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
         self.fileplayer = AVAudioPlayer(data: data as NSData, error: &error)
         self.fileplayer.playAtTime(self.fileplayer.deviceCurrentTime + delayMS)
 
+    }
+    
+    func countChanged(manager: Manager, count: Int) {
+        NSLog("%@", "trySetCounter: \(count)")
+        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
+            self.countLabel.text = "\(count)"
+        }
+        
     }
     
     

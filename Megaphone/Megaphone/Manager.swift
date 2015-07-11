@@ -7,7 +7,8 @@ import MultipeerConnectivity
 protocol ManagerDelegate {
     func connectedDevicesChanged(manager : Manager, connectedDevices: [String])
     func pingChanged(manager : Manager, connectedDevices: [String])
-    func playFile(manager : Manager, data: NSData, delayMS : Double)    
+    func playFile(manager : Manager, data: NSData, delayMS : Double)
+    func countChanged(manager : Manager, count: Int)
 }
 
 protocol SessionDelegate {
@@ -176,6 +177,35 @@ class Manager : NSObject {
             }
         }
         
+    }
+    
+    func sendCount(){
+        NSLog("%@", "trySendCountTo: \(parentPeer)")
+        let message : Message = Message(type: "Count")
+        message.count = calcCount()
+        if parentSession.connectedPeers.count > 0 {
+            var error : NSError?
+            if self.parentSession.sendData( message.toNSData(), toPeers: [parentPeer], withMode: MCSessionSendDataMode.Reliable, error: &error) {
+                NSLog("%@", "sentCountTo: \(parentPeer)")
+            }else{
+                NSLog("%@", "\(error)")
+            }
+        }
+    }
+    
+    func calcCount() -> Int{
+        var childCount : Int = 0;
+        for item in session.connectedPeers{
+            if let count = pingData[item as! MCPeerID] as? NSMutableDictionary{
+                if let lat = count["childCount"] {
+                    childCount += Int(lat.integerValue)
+                }
+            }
+        }
+        childCount += session.connectedPeers.count
+        NSLog("%@", "calculatedCount: \(childCount)")
+
+        return childCount
     }
     
     func sendPing() {
@@ -438,8 +468,6 @@ extension Manager : MCSessionDelegate {
                 NSLog("%@", "isSessionFromSessionList")
                 //serviceBrowser.startBrowsingForPeers()
             }
-            
-            
         }else if(str=="NotConnected"){
             if let timer = pingTimer {
                 pingTimer!.invalidate()
@@ -470,6 +498,11 @@ extension Manager : MCSessionDelegate {
                 }
             }
 
+        }
+        if(isSender){
+            self.delegate?.countChanged(self, count: calcCount())
+        }else{
+            sendCount()
         }
         self.delegate?.connectedDevicesChanged(self, connectedDevices: session.connectedPeers.map({$0.displayName}))
     }
@@ -545,7 +578,14 @@ extension Manager : MCSessionDelegate {
             let sound : NSData = setupAudioPlayerWithFile(message.type, type:"wav")
             self.delegate?.playFile(self, data: sound, delayMS: delayPing!-myPing)
             sendPlaySavedFile(message.type, maxPing: delayPing!-myPing)
-            
+        case "Count":
+            var peerData = pingData[peerID]as! NSMutableDictionary;
+            peerData["count"] = message.count;
+            if(isSender){
+                self.delegate?.countChanged(self, count: calcCount())
+            }else{
+                sendCount()
+            }
         default:
             //Errormessage
             NSLog("%@", "Error in didReceiveData")
