@@ -16,7 +16,7 @@
 		844670E81B4D8BA0007F79F4 /* 111.wav in Resources */ = {isa = PBXBuildFile; fileRef = 844670E21B4D8BA0007F79F4 /* 111.wav */; };
 		844670EC1B4E839E007F79F4 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844670EB1B4E839E007F79F4 /* Recorder.swift */; };
 		9C08CDDF1B4C80400061E12C /* 1436323562_device_smart-phones_iphones_horizontal_.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C08CDDE1B4C80400061E12C /* 1436323562_device_smart-phones_iphones_horizontal_.png */; };
-		9C284D8F1B44041500C5706E /* StarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8C1B44041500C5706E /* StarButton.swift */; };
+		9C284D8F1B44041500C5706E /* MegaphoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8C1B44041500C5706E /* MegaphoneButton.swift */; };
 		9C284D901B44041500C5706E /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8D1B44041500C5706E /* Paths.swift */; };
 		9C284D911B44041500C5706E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8E1B44041500C5706E /* Extensions.swift */; };
 		9C6018B01B34A0B200C49BC6 /* test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C6018AF1B34A0B200C49BC6 /* test.mp3 */; };
@@ -27,6 +27,7 @@
 		9C8F95901B442DB900FAD06A /* bg3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9C8F958F1B442DB900FAD06A /* bg3.jpg */; };
 		9CA2F7ED1B346876006E16CA /* sirenpolice2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9CA2F7EC1B346876006E16CA /* sirenpolice2.wav */; };
 		9CAEBD9D1B346AA700F683DC /* parkuhr.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9CAEBD9C1B346AA700F683DC /* parkuhr.mp3 */; };
+		9CC7FC541B51331600A76E0C /* SoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC7FC531B51331600A76E0C /* SoundButton.swift */; };
 		BF52C0A41AEFE4700042F9E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */; };
 		BF52C0A61AEFE4700042F9E8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52C0A51AEFE4700042F9E8 /* ViewController.swift */; };
 		BF52C0A91AEFE4700042F9E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF52C0A71AEFE4700042F9E8 /* Main.storyboard */; };
@@ -56,7 +57,7 @@
 		844670E21B4D8BA0007F79F4 /* 111.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 111.wav; sourceTree = "<group>"; };
 		844670EB1B4E839E007F79F4 /* Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		9C08CDDE1B4C80400061E12C /* 1436323562_device_smart-phones_iphones_horizontal_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1436323562_device_smart-phones_iphones_horizontal_.png"; sourceTree = "<group>"; };
-		9C284D8C1B44041500C5706E /* StarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarButton.swift; sourceTree = "<group>"; };
+		9C284D8C1B44041500C5706E /* MegaphoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MegaphoneButton.swift; sourceTree = "<group>"; };
 		9C284D8D1B44041500C5706E /* Paths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
 		9C284D8E1B44041500C5706E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9C6018AF1B34A0B200C49BC6 /* test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = test.mp3; sourceTree = "<group>"; };
@@ -66,6 +67,7 @@
 		9C8F958F1B442DB900FAD06A /* bg3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg3.jpg; sourceTree = "<group>"; };
 		9CA2F7EC1B346876006E16CA /* sirenpolice2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sirenpolice2.wav; sourceTree = SOURCE_ROOT; };
 		9CAEBD9C1B346AA700F683DC /* parkuhr.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = parkuhr.mp3; sourceTree = "<group>"; };
+		9CC7FC531B51331600A76E0C /* SoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundButton.swift; sourceTree = "<group>"; };
 		BF52C09E1AEFE4700042F9E8 /* Megaphone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Megaphone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF52C0A21AEFE4700042F9E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,7 +121,8 @@
 		BF52C0A01AEFE4700042F9E8 /* Megaphone */ = {
 			isa = PBXGroup;
 			children = (
-				9C284D8C1B44041500C5706E /* StarButton.swift */,
+				9C284D8C1B44041500C5706E /* MegaphoneButton.swift */,
+				9CC7FC531B51331600A76E0C /* SoundButton.swift */,
 				9C284D8D1B44041500C5706E /* Paths.swift */,
 				9C284D8E1B44041500C5706E /* Extensions.swift */,
 				BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */,
@@ -293,10 +296,11 @@
 				BF52C0A61AEFE4700042F9E8 /* ViewController.swift in Sources */,
 				9C284D911B44041500C5706E /* Extensions.swift in Sources */,
 				9C284D901B44041500C5706E /* Paths.swift in Sources */,
-				9C284D8F1B44041500C5706E /* StarButton.swift in Sources */,
+				9C284D8F1B44041500C5706E /* MegaphoneButton.swift in Sources */,
 				BF52C0A41AEFE4700042F9E8 /* AppDelegate.swift in Sources */,
 				BF52C0C61AEFEAEA0042F9E8 /* Manager.swift in Sources */,
 				840D26F11B441611005203FC /* Message.swift in Sources */,
+				9CC7FC541B51331600A76E0C /* SoundButton.swift in Sources */,
 				844670EC1B4E839E007F79F4 /* Recorder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
