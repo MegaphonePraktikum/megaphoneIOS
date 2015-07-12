@@ -17,7 +17,7 @@ protocol SessionDelegate {
 
 class Manager : NSObject {
     
-    private let maxPeers : Int = 1
+    private let maxPeers : Int = 2
     
     private let ServiceType = "megaphone"
     private let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
@@ -376,31 +376,33 @@ extension Manager : MCNearbyServiceAdvertiserDelegate {
         
         NSLog("%@", "didReceiveInvitationFromPeer \(peerID)  sessionName \(NSString(data: context, encoding: NSUTF8StringEncoding))")
         let sname : NSString = NSString(data: context, encoding: NSUTF8StringEncoding)!
-
-        let p : NSMutableDictionary = NSMutableDictionary()
-        NSLog("%@", "session \(self.myPeerId)");
-        let s = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.None)
-        s?.delegate = self
-        p["peerID"] = peerID
-        p["session"] = s
-        println(p)
-        peers[sname] = p
-        println(peers.count)
-        println(peers[sname])
         
-        //self.parentPeer = peerID
-        //invitationHandler(true, self.parentSession)
-        invitationHandler(true, s)
         
-        if(self.parentSession.connectedPeers.count > maxPeers){
-            NSLog("%@", "tryDisconnectBecauseMax")
-            self.parentSession.disconnect()
-        }else{
-            //self.serviceAdvertiser.stopAdvertisingPeer()
-            NSLog("%@", "delegated accepted Session \(sname)")
+        
+        if  let x = self.peers[sname] {
+            NSLog("%@", "session \(sname) already exists");
 
+        }
+        else {
+            let p : NSMutableDictionary = NSMutableDictionary()
+            NSLog("%@", "session \(self.myPeerId)");
+            let s = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.None)
+            s?.delegate = self
+            p["peerID"] = peerID
+            p["session"] = s
+            println(p)
+            peers[sname] = p
+            println(peers.count)
+            println(peers[sname])
+            
+            
+            invitationHandler(true, s)
+            
+            
             self.delegateSession?.addSession(sname)
         }
+
+
         
     }
 
