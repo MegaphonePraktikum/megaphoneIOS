@@ -14,20 +14,8 @@ class ViewController: UIViewController {
     var recorder: AVAudioRecorder!
     
     var player : AVAudioPlayer!
-    
-    @IBOutlet var recordButton: UIButton!
-    
-    @IBOutlet var stopButton: UIButton!
-    
-    @IBOutlet var playButton: UIButton!
-    
-    @IBOutlet var statusLabel: UILabel!
 
     @IBOutlet var recButton: MegaphoneButton!
-    
-    @IBOutlet var bgView: UIImageView!
-    
-    @IBOutlet var connectionsLabel: UILabel!
     
     @IBOutlet var instructionLabel: UILabel!
     
@@ -44,9 +32,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         megaphoneService.delegate = self
-        
-        stopButton.enabled = false
-        playButton.enabled = false
         Recorder.setSessionPlayback()
         askForNotifications()
         
@@ -67,96 +52,6 @@ class ViewController: UIViewController {
     @IBAction func startBrowser(sender: UIButton) {
         megaphoneService.startBrowser("ghfhf")
     }
-    
-    
-    
-    @IBAction func record(sender: UIButton) {
-        
-        if player != nil && player.playing {
-            player.stop()
-        }
-        
-        if recorder == nil {
-            println("recording. recorder nil")
-            recordButton.setTitle("Pause", forState:.Normal)
-            playButton.enabled = false
-            stopButton.enabled = true
-            recorder = Recorder(setup: true, del: self)
-            return
-        }
-        
-        if recorder != nil && recorder.recording {
-            println("pausing")
-            recorder.pause()
-            recordButton.setTitle("Continue", forState:.Normal)
-            
-        } else {
-            println("recording")
-            recordButton.setTitle("Pause", forState:.Normal)
-            playButton.enabled = false
-            stopButton.enabled = true
-            //            recorder.record()
-            recorder = Recorder(setup: false, del: self)
-        }
-    }
-    
-    @IBAction func stop(sender: UIButton) {
-        println("stop")
-        
-        recorder?.stop()
-        player?.stop()
-        
-        recordButton.setTitle("Record", forState:.Normal)
-        Recorder.setAudioSessionInActive()
-        playButton.enabled = true
-        stopButton.enabled = false
-        recordButton.enabled = true
-        megaphoneService.sendFile(soundFileURL: recorder.url!)
-
-        recorder = nil
-        
-
-    }
-    
-    @IBAction func play(sender: UIButton) {
-        play()
-    }
-    
-    func play() {
-        
-        instructionLabel.text = "Hold down to record"
-        
-        println("playing")
-        var error: NSError?
-        
-        if let r = recorder {
-            self.player = AVAudioPlayer(contentsOfURL: r.url, error: &error)
-            if self.player == nil {
-                if let e = error {
-                    println(e.localizedDescription)
-                }
-            }
-        } else {
-            self.player = AVAudioPlayer(contentsOfURL: recorder.url!, error: &error)
-            if player == nil {
-                if let e = error {
-                    println(e.localizedDescription)
-                }
-            }
-        }
-        
-        stopButton.enabled = true
-        
-        player.delegate = self
-        player.prepareToPlay()
-        player.volume = 1.0
-        player.play()
-    }
-    
-    
-    
-
-
     
     func askForNotifications() {
         
@@ -193,19 +88,6 @@ class ViewController: UIViewController {
 
 extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
-    func connectedDevicesChanged(manager: Manager, connectedDevices: [String]) {
-        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
-            self.connectionsLabel.text = "Connections: \(connectedDevices)"
-        }
-    }
-    
-    func pingChanged(manager: Manager, connectedDevices: [String]) {
-        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
-            self.connectionsLabel.text = "Connections: \(connectedDevices)"
-        }
-        NSLog("%@", "pingChanged")
-    }
-    
     func playFile(manager: Manager, data: NSData, delayMS : Double ) {
         NSLog("%@", "playWithDelay: \(delayMS)")
         var error: NSError?
@@ -230,10 +112,6 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
     
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!,
         successfully flag: Bool) {
-            println("finished recording \(flag)")
-            stopButton.enabled = false
-            playButton.enabled = true
-            recordButton.setTitle("Record", forState:.Normal)
     }
     
     func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder!,
@@ -243,8 +121,6 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
 
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
         println("finished playing \(flag)")
-        recordButton.enabled = true
-        stopButton.enabled = false
     }
     
     func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
@@ -261,9 +137,6 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
         
         if recorder == nil {
             println("recording. recorder nil")
-            recordButton.setTitle("Pause", forState:.Normal)
-            playButton.enabled = false
-            stopButton.enabled = true
             recorder = Recorder(setup: true, del: self)
             return
         }
@@ -271,13 +144,9 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
         if recorder != nil && recorder.recording {
             println("pausing")
             recorder.pause()
-            recordButton.setTitle("Continue", forState:.Normal)
             
         } else {
             println("recording")
-            recordButton.setTitle("Pause", forState:.Normal)
-            playButton.enabled = false
-            stopButton.enabled = true
             //            recorder.record()
             recorder = Recorder(setup: false, del: self)
         }
@@ -293,11 +162,7 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
         recorder?.stop()
         player?.stop()
         
-        recordButton.setTitle("Record", forState:.Normal)
         Recorder.setAudioSessionInActive()
-        playButton.enabled = true
-        stopButton.enabled = false
-        recordButton.enabled = true
         recorder = nil
         
 
@@ -310,11 +175,7 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
         recorder?.stop()
         player?.stop()
         
-        recordButton.setTitle("Record", forState:.Normal)
         Recorder.setAudioSessionInActive()
-        playButton.enabled = true
-        stopButton.enabled = false
-        recordButton.enabled = true
         megaphoneService.sendFile(soundFileURL: recorder.url!)
 
         recorder = nil

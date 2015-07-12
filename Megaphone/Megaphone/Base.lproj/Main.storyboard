@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="eey-NL-bqQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="eey-NL-bqQ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -45,58 +45,7 @@
                                     <constraint firstAttribute="centerX" secondItem="tcf-WH-K8L" secondAttribute="centerX" id="sds-vL-nTV"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pzC-fO-hxd">
-                                <rect key="frame" x="199" y="484" width="30" height="30"/>
-                                <state key="normal" title="Play">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="play:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="Nmg-VW-s9D"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilX-he-hSb">
-                                <rect key="frame" x="66" y="413" width="90" height="30"/>
-                                <state key="normal" title="StartBrowser">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="startBrowser:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="2Rv-HU-yWm"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwl-bz-J0S">
-                                <rect key="frame" x="16" y="413" width="33" height="30"/>
-                                <state key="normal" title="File1">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="redTapped:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="F3G-gy-WKJ"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Connections:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNT-9a-C7e">
-                                <rect key="frame" x="16" y="384" width="296" height="21"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sdy-fL-N12"/>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pji-Bm-TA5">
-                                <rect key="frame" x="16" y="484" width="50" height="30"/>
-                                <state key="normal" title="Record">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="record:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="ZeX-wr-CBO"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lzP-gl-2a5">
-                                <rect key="frame" x="116" y="484" width="33" height="30"/>
-                                <state key="normal" title="Stop">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="stop:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="al7-tS-XIP"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4PW-Yi-Sp6" customClass="MegaphoneButton" customModule="Megaphone" customModuleProvider="target">
                                 <rect key="frame" x="85" y="104" width="150" height="150"/>
                                 <constraints>
@@ -181,13 +130,9 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="bgV" destination="sdy-fL-N12" id="xDH-M8-LdD"/>
-                        <outlet property="connectionsLabel" destination="WNT-9a-C7e" id="wjl-SG-tAc"/>
                         <outlet property="countLabel" destination="Aw3-nR-lWE" id="JDf-Ny-kuC"/>
                         <outlet property="instructionLabel" destination="tcf-WH-K8L" id="vrK-OY-CxU"/>
-                        <outlet property="playButton" destination="pzC-fO-hxd" id="BZM-RV-1Gm"/>
                         <outlet property="recButton" destination="4PW-Yi-Sp6" id="dMS-9J-BIo"/>
-                        <outlet property="recordButton" destination="pji-Bm-TA5" id="4vK-Pm-Ib0"/>
-                        <outlet property="stopButton" destination="lzP-gl-2a5" id="d1N-Jx-8JJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UW0-hb-LNu" sceneMemberID="firstResponder"/>

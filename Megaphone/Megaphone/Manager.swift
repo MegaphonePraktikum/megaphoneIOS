@@ -5,8 +5,6 @@ import Foundation
 import MultipeerConnectivity
 
 protocol ManagerDelegate {
-    func connectedDevicesChanged(manager : Manager, connectedDevices: [String])
-    func pingChanged(manager : Manager, connectedDevices: [String])
     func playFile(manager : Manager, data: NSData, delayMS : Double)
     func countChanged(manager : Manager, count: Int)
     func lostConnection()
@@ -515,7 +513,6 @@ extension Manager : MCSessionDelegate {
         }else{
             sendCount()
         }
-        self.delegate?.connectedDevicesChanged(self, connectedDevices: session.connectedPeers.map({$0.displayName}))
     }
     
     func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!) {
@@ -548,7 +545,6 @@ extension Manager : MCSessionDelegate {
                 }
             }
             NSLog("%@", "changePing")
-            self.delegate?.pingChanged(self, connectedDevices: devicesAndPing)
             
         case "FILE":
             soundFile = message.data!
