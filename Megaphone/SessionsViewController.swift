@@ -14,8 +14,11 @@ class SessionsViewController : UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        data.removeAllObjects()
+        self.tableView.reloadData()
         AppDelegate.megaphoneService = Manager()
         megaphoneService = AppDelegate.megaphoneService
+        megaphoneService.delegateSession = self
     }
     
     var data : NSMutableArray = NSMutableArray()
