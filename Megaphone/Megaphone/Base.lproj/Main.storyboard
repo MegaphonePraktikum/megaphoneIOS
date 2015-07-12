@@ -128,6 +128,9 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="widthClass=regular">
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="35"/>
+                                </variation>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -228,8 +231,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xA-TM-aJN">
-                                <rect key="frame" x="102" y="193" width="117" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gIM-lC-rCR">
+                                <rect key="frame" x="112" y="99" width="97" height="30"/>
+                                <accessibility key="accessibilityConfiguration" hint="Session Name" label=""/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xA-TM-aJN">
+                                <rect key="frame" x="102" y="157" width="117" height="30"/>
                                 <state key="normal" title="Add Session">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -237,14 +246,16 @@
                                     <action selector="startBrowser:" destination="SON-Ft-5aI" eventType="touchUpInside" id="yg3-JY-t82"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gIM-lC-rCR">
-                                <rect key="frame" x="112" y="97" width="97" height="30"/>
-                                <accessibility key="accessibilityConfiguration" hint="Session Name" label=""/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gIM-lC-rCR" firstAttribute="leading" secondItem="g9M-rJ-AvD" secondAttribute="leadingMargin" constant="96" id="2Br-VM-zGJ"/>
+                            <constraint firstItem="gIM-lC-rCR" firstAttribute="top" secondItem="Ue5-aF-U0n" secondAttribute="bottom" constant="35" id="2Vv-zW-XK6"/>
+                            <constraint firstItem="1xA-TM-aJN" firstAttribute="leading" secondItem="g9M-rJ-AvD" secondAttribute="leadingMargin" constant="86" id="Y8K-yA-U7A"/>
+                            <constraint firstItem="gIM-lC-rCR" firstAttribute="centerX" secondItem="g9M-rJ-AvD" secondAttribute="centerX" id="frP-DX-1bG"/>
+                            <constraint firstItem="gIM-lC-rCR" firstAttribute="centerX" secondItem="1xA-TM-aJN" secondAttribute="centerX" id="j3C-KH-OW3"/>
+                            <constraint firstItem="1xA-TM-aJN" firstAttribute="top" secondItem="gIM-lC-rCR" secondAttribute="bottom" constant="28" id="lvX-6p-u6V"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
