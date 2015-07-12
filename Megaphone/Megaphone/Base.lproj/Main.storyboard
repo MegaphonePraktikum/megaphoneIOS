@@ -198,7 +198,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="iOS Hausaufgabe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5GU-SI-uYb">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -240,8 +240,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="startBrowser:" destination="SON-Ft-5aI" eventType="touchUpInside" id="sJA-Jh-mtK"/>
-                                    <segue destination="ax0-WZ-lTZ" kind="show" id="Iq7-FY-YH1"/>
+                                    <action selector="startBrowser:" destination="SON-Ft-5aI" eventType="touchUpInside" id="yg3-JY-t82"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gIM-lC-rCR">
@@ -256,11 +255,12 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="sessionNameLabel" destination="gIM-lC-rCR" id="IE1-Gz-YMH"/>
+                        <segue destination="ax0-WZ-lTZ" kind="show" identifier="AddSessionSegue" id="7Kj-dd-7aR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a2S-e5-Fvg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1674" y="971"/>
+            <point key="canvasLocation" x="1682" y="1029"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fWC-in-25L">
