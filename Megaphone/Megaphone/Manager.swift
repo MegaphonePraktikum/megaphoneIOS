@@ -73,6 +73,19 @@ class Manager : NSObject {
         NSLog("%@", "deinit");
     }
     
+    func reset(){
+        pingData.removeAllObjects()
+        
+        pingTimer = nil
+        soundFile = nil
+        parentPeer = MCPeerID()
+        maxPing = 0.0
+        isSender = false
+        sessionName = ""
+        parentSession.disconnect()
+        session.disconnect()
+    }
+    
     lazy var session: MCSession = {
         NSLog("%@", "session \(self.myPeerId)");
         let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.None)

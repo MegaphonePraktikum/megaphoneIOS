@@ -19,7 +19,7 @@ class SessionsViewController : UITableViewController {
         NSLog("%@", "resetData: \(data.count)")
         self.tableView.reloadData()
         if(!first){
-            AppDelegate.megaphoneService = Manager()
+            megaphoneService.reset()
         }
         first = false;
     }
