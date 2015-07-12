@@ -331,12 +331,13 @@ class Manager : NSObject {
         for p in peers {
             if !(p.key as! NSString == sessionName) {
                 NSLog("%@", "removeObject: \(p.key)")
-                peers.removeObjectForKey(p.key)
                 let s = p.value["session"] as! MCSession
-                if !(s == parentSession) {
+                s.disconnect()
+                peers.removeObjectForKey(p.key)
+                /*if !(s == parentSession) {
                     NSLog("%@", "removed Object and disconnect\(p.key)")
                     s.disconnect()
-                }
+                }*/
 
             }
             else {
