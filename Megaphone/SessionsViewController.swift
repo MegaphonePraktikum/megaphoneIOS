@@ -7,10 +7,15 @@ import MultipeerConnectivity
 
 class SessionsViewController : UITableViewController {
     
-    let megaphoneService = AppDelegate.megaphoneService
+    var megaphoneService = AppDelegate.megaphoneService
     
     override func viewDidLoad() {
         megaphoneService.delegateSession = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        AppDelegate.megaphoneService = Manager()
+        megaphoneService = AppDelegate.megaphoneService
     }
     
     var data : NSMutableArray = NSMutableArray()
