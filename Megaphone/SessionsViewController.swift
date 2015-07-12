@@ -20,8 +20,6 @@ class SessionsViewController : UITableViewController {
         self.tableView.reloadData()
         if(!first){
             AppDelegate.megaphoneService = Manager()
-            megaphoneService = AppDelegate.megaphoneService
-            megaphoneService.delegateSession = self
         }
         first = false;
     }

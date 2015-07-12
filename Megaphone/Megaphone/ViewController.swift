@@ -40,6 +40,10 @@ class ViewController: UIViewController {
         recButton.addTarget(self, action: "stopRecord:", forControlEvents: UIControlEvents.TouchUpInside|UIControlEvents.TouchUpOutside)    
 
     }
+    
+    override func viewWillDisappear(animated: Bool) {
+        navigationController?.popToRootViewControllerAnimated(true)
+    }
 
     @IBAction func redTapped(sender: UIButton) {
         megaphoneService.sendFile()
