@@ -228,14 +228,14 @@ class Manager : NSObject {
         }
     }
     
-    func sendPong(peerID : MCPeerID) {
+    func sendPong(peerID : MCPeerID, session: MCSession) {
         NSLog("%@", "trySendPongTo: \(peerID)")
         
         let message : Message = Message(type: "PONG")
         
-        if parentSession.connectedPeers.count > 0 {
+        if session.connectedPeers.count > 0 {
             var error : NSError?
-            if self.parentSession.sendData( message.toNSData(), toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error) {
+            if session.sendData( message.toNSData(), toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error) {
                 NSLog("%@", "sentPongTo: \(peerID)")
             }else{
                 NSLog("%@", "\(error)")
@@ -516,7 +516,7 @@ extension Manager : MCSessionDelegate {
         
         switch message.type {
         case "PING":
-            sendPong(peerID)
+            sendPong(peerID, session: session)
         case "PONG":
             var peerData = pingData[peerID]as! NSMutableDictionary;
             var pongReceived = NSDate.timeIntervalSinceReferenceDate();
