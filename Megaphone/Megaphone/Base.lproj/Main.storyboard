@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="eey-NL-bqQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="eey-NL-bqQ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -20,16 +20,16 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="bg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="rfY-mg-v4r">
-                                <rect key="frame" x="8" y="64" width="304" height="230"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="230"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="rfY-mg-v4r" secondAttribute="height" multiplier="152:115" id="wBK-iT-HAA"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CX5-1C-N4L">
-                                <rect key="frame" x="8" y="64" width="304" height="230"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="230"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Hold down to record" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcf-WH-K8L">
-                                        <rect key="frame" x="73" y="201" width="158" height="21"/>
+                                        <rect key="frame" x="81" y="201" width="158" height="21"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -97,7 +97,7 @@
                                     <action selector="stop:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="al7-tS-XIP"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4PW-Yi-Sp6" customClass="StarButton" customModule="Megaphone" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4PW-Yi-Sp6" customClass="MegaphoneButton" customModule="Megaphone" customModuleProvider="target">
                                 <rect key="frame" x="85" y="104" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="4PW-Yi-Sp6" secondAttribute="height" multiplier="1:1" id="JIi-bs-gCB"/>
@@ -121,7 +121,7 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Master" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qY-qN-KTb">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Sender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qY-qN-KTb">
                                 <rect key="frame" x="22" y="335" width="67" height="21"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -192,7 +192,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UW0-hb-LNu" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1168" y="1789"/>
+            <point key="canvasLocation" x="1736" y="1791"/>
         </scene>
         <!--Megaphone Sessions-->
         <scene sceneID="Z3T-fs-ICn">
@@ -217,7 +217,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="ax0-WZ-lTZ" kind="show" id="rWf-Df-Beq"/>
+                                    <segue destination="7T5-d5-kd7" kind="show" id="UAK-1F-HoR"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -233,7 +233,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6dI-gM-F1e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1127" y="1024"/>
+            <point key="canvasLocation" x="1100" y="1050"/>
         </scene>
         <!--Add Session View Controller-->
         <scene sceneID="toU-vy-hOn">
@@ -273,7 +273,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a2S-e5-Fvg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1608" y="1042"/>
+            <point key="canvasLocation" x="1674" y="971"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fWC-in-25L">
@@ -294,12 +294,101 @@
             </objects>
             <point key="canvasLocation" x="595" y="1024"/>
         </scene>
+        <!--Megaphone-->
+        <scene sceneID="MG8-yD-hHw">
+            <objects>
+                <viewController id="7T5-d5-kd7" userLabel="Megaphone" customClass="ReceiverViewController" customModule="Megaphone" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="azQ-yc-TJo"/>
+                        <viewControllerLayoutGuide type="bottom" id="xXj-Gb-5Uc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cOL-WH-qEM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nSE-J2-BEk">
+                                <rect key="frame" x="0.0" y="64" width="320" height="230"/>
+                                <color key="backgroundColor" red="1" green="0.60149372270000001" blue="0.30398037179999998" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="nSE-J2-BEk" secondAttribute="height" multiplier="152:115" id="fMQ-YK-4tK"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Receiver" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85e-0V-wAh">
+                                <rect key="frame" x="22" y="335" width="67" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Session-Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uy8-yu-NqN">
+                                <rect key="frame" x="22" y="311" width="127" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3TX-Kb-a6E"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="bg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Aas-uH-PfL">
+                                <rect key="frame" x="0.0" y="64" width="320" height="230"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Aas-uH-PfL" secondAttribute="height" multiplier="152:115" id="IQw-15-Q1i"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gAb-SB-46K" customClass="SoundButton" customModule="Megaphone" customModuleProvider="target">
+                                <rect key="frame" x="85" y="104" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gAb-SB-46K" secondAttribute="height" multiplier="1:1" id="uua-h1-9Ji"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Uy8-yu-NqN" firstAttribute="top" secondItem="nSE-J2-BEk" secondAttribute="bottom" constant="17" id="5gJ-pb-BVG"/>
+                            <constraint firstItem="nSE-J2-BEk" firstAttribute="width" secondItem="cOL-WH-qEM" secondAttribute="width" id="8wi-GN-cPx"/>
+                            <constraint firstItem="gAb-SB-46K" firstAttribute="centerX" secondItem="nSE-J2-BEk" secondAttribute="centerX" id="9wF-NY-xuY"/>
+                            <constraint firstItem="85e-0V-wAh" firstAttribute="top" secondItem="Uy8-yu-NqN" secondAttribute="bottom" constant="3" id="M0c-cF-Ti9"/>
+                            <constraint firstItem="gAb-SB-46K" firstAttribute="width" secondItem="nSE-J2-BEk" secondAttribute="height" multiplier="15:23" id="afo-YU-VSL"/>
+                            <constraint firstItem="gAb-SB-46K" firstAttribute="centerY" secondItem="nSE-J2-BEk" secondAttribute="centerY" id="b4B-M1-iri"/>
+                            <constraint firstItem="Aas-uH-PfL" firstAttribute="top" secondItem="azQ-yc-TJo" secondAttribute="bottom" id="eeS-YW-UGz"/>
+                            <constraint firstItem="85e-0V-wAh" firstAttribute="leading" secondItem="nSE-J2-BEk" secondAttribute="leading" constant="14" id="iCm-Ov-dLn"/>
+                            <constraint firstItem="Aas-uH-PfL" firstAttribute="width" secondItem="cOL-WH-qEM" secondAttribute="width" id="jwP-6E-wih"/>
+                            <constraint firstAttribute="centerX" secondItem="nSE-J2-BEk" secondAttribute="centerX" id="lhw-qb-eq0"/>
+                            <constraint firstItem="nSE-J2-BEk" firstAttribute="top" secondItem="azQ-yc-TJo" secondAttribute="bottom" id="o84-ck-QPo"/>
+                            <constraint firstItem="Uy8-yu-NqN" firstAttribute="leading" secondItem="nSE-J2-BEk" secondAttribute="leading" constant="14" id="uVh-M1-Dfb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Megaphone" id="64U-Vo-aPl"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="bgV" destination="3TX-Kb-a6E" id="Fyf-BR-VoN"/>
+                        <outlet property="recButton" destination="gAb-SB-46K" id="fJ0-0U-8rr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eqh-jt-zGl" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1107" y="1753"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="KfG-fX-JBX">
+            <objects>
+                <viewController id="6Lf-1Y-j55" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="n4p-fR-XV6"/>
+                        <viewControllerLayoutGuide type="bottom" id="65U-rC-OWM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="El5-YK-Hnq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wUH-cT-YJl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
     </scenes>
     <resources>
         <image name="1436323562_device_smart-phones_iphones_horizontal_.png" width="76" height="128"/>
         <image name="bg.jpg" width="1200" height="800"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="rWf-Df-Beq"/>
-    </inferredMetricsTieBreakers>
 </document>

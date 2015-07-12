@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     
     @IBOutlet var statusLabel: UILabel!
 
-    @IBOutlet var recButton: StarButton!
+    @IBOutlet var recButton: MegaphoneButton!
     
     @IBOutlet var bgView: UIImageView!
     
@@ -245,8 +245,8 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
         println("\(error.localizedDescription)")
     }
     
-    func startRecord(sender: StarButton) {
-        sender.isFavorite = true
+    func startRecord(sender: MegaphoneButton) {
+        sender.isActive = true
         instructionLabel.text = "Record your message"
         
         if player != nil && player.playing {
@@ -297,8 +297,8 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
 
     }
     
-    func stopRecord(sender: StarButton) {
-        sender.isFavorite = false
+    func stopRecord(sender: MegaphoneButton) {
+        sender.isActive = false
         instructionLabel.text = "Message is pending..."
         
         recorder?.stop()

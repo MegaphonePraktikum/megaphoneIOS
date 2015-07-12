@@ -1,11 +1,10 @@
-
 import UIKit
 import QuartzCore
 
 @IBDesignable
-public class StarButton: UIButton {
+public class SoundButton: UIButton {
     
-    private var starShape: CAShapeLayer!
+    private var megaphoneShape: CAShapeLayer!
     private var outerRingShape: CAShapeLayer!
     private var fillRingShape: CAShapeLayer!
     private var circleLayer: CAShapeLayer!
@@ -25,7 +24,7 @@ public class StarButton: UIButton {
     }
     
     @IBInspectable
-    var favoriteColor: UIColor = UIColor(hex:"ee7034") {
+    var favoriteColor: UIColor = UIColor(hex:"088DA5") {
         didSet {
             updateLayerProperties()
         }
@@ -45,13 +44,13 @@ public class StarButton: UIButton {
         }
     }
     
-    var isFavorite : Bool = false {
+    var isActive : Bool = false {
         didSet {
             println("isvaforite")
-            if self.isFavorite {
-                favorite()
+            if self.isActive {
+                activate()
             }else {
-                notFavorite()
+                deactivate()
             }
         }
     }
@@ -66,11 +65,11 @@ public class StarButton: UIButton {
             outerRingShape.strokeColor = favoriteColor.CGColor
         }
         
-        if starShape != nil {
-            if isFavorite {
-                starShape.fillColor = starFavoriteColor.CGColor
+        if megaphoneShape != nil {
+            if isActive {
+                megaphoneShape.fillColor = starFavoriteColor.CGColor
             } else {
-                starShape.fillColor = notFavoriteColor.CGColor
+                megaphoneShape.fillColor = notFavoriteColor.CGColor
             }
         }
     }
@@ -113,7 +112,7 @@ public class StarButton: UIButton {
             gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth(fillRingShape.bounds), CGRectGetHeight(fillRingShape.bounds));
             var colors = NSMutableArray();
             for (var i : CGFloat = 0; i < 10; i++) {
-                colors.addObject(UIColor(hue: 0.08, saturation: 1, brightness: (i/20)+0.4, alpha: 1).CGColor)
+                colors.addObject(UIColor(hue: 0.5, saturation: 0.9, brightness: (i/20)+0.4, alpha: 1).CGColor)
                 
             }
             gradientLayer.colors = colors as [AnyObject];
@@ -140,19 +139,19 @@ public class StarButton: UIButton {
             outerRingShape.opacity = 1.0
             self.layer.addSublayer(outerRingShape)
         }
-        if starShape == nil {
+        if megaphoneShape == nil {
             var starFrame = self.bounds
             starFrame.size.width = CGRectGetWidth(starFrame)/2.5
             starFrame.size.height = CGRectGetHeight(starFrame)/2.5
             
-            starShape = CAShapeLayer()
-            starShape.path = CGPath.rescaleForFrame(path: Paths.star, frame: starFrame)
-            starShape.bounds = CGPathGetBoundingBox(starShape.path)
-            starShape.fillColor = notFavoriteColor.CGColor
-            starShape.position = CGPoint(x: CGRectGetWidth(CGPathGetBoundingBox(outerRingShape.path))/2, y: CGRectGetHeight(CGPathGetBoundingBox(outerRingShape.path))/2)
-            starShape.transform = CATransform3DIdentity
-            starShape.opacity = 1
-            self.layer.addSublayer(starShape)
+            megaphoneShape = CAShapeLayer()
+            megaphoneShape.path = CGPath.rescaleForFrame(path: Paths.sound, frame: starFrame)
+            megaphoneShape.bounds = CGPathGetBoundingBox(megaphoneShape.path)
+            megaphoneShape.fillColor = notFavoriteColor.CGColor
+            megaphoneShape.position = CGPoint(x: CGRectGetWidth(CGPathGetBoundingBox(outerRingShape.path))/2, y: CGRectGetHeight(CGPathGetBoundingBox(outerRingShape.path))/2)
+            megaphoneShape.transform = CATransform3DIdentity
+            megaphoneShape.opacity = 1
+            self.layer.addSublayer(megaphoneShape)
         }
         
         let circlePath = UIBezierPath(arcCenter: CGPoint(x: frame.size.width / 2.0, y: frame.size.height / 2.0), radius: (frame.size.width - 10)/2, startAngle: -CGFloat(M_PI * 0.5), endAngle: CGFloat(M_PI * 2.0), clockwise: true)
@@ -175,15 +174,8 @@ public class StarButton: UIButton {
         return CGRectInset(self.bounds, lineWidth/2, lineWidth/2)
     }
     
-    private func notFavorite(){
+    private func deactivate(){
         println("NOTFAV func")
-        
-        //circleLayer.removeAllAnimations()
-        
-        
-        //circleLayer.removeAnimationForKey("animateCircle")
-        
-        
         
         let starFillColor = CABasicAnimation(keyPath: "fillColor")
         starFillColor.toValue = notFavoriteColor.CGColor
@@ -196,9 +188,9 @@ public class StarButton: UIButton {
         let starGroup = CAAnimationGroup()
         starGroup.animations = [starFillColor, starOpacity]
         
-        starShape.addAnimation(starGroup, forKey: nil)
-        starShape.fillColor = notFavoriteColor.CGColor
-        starShape.opacity = 1
+        megaphoneShape.addAnimation(starGroup, forKey: nil)
+        megaphoneShape.fillColor = notFavoriteColor.CGColor
+        megaphoneShape.opacity = 1
         
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotateAnimation.fromValue = CGFloat(-(M_PI * 0.1))
@@ -207,7 +199,7 @@ public class StarButton: UIButton {
         rotateAnimation.removedOnCompletion = false
         rotateAnimation.fillMode =  kCAFillModeForwards
         
-        starShape.addAnimation(rotateAnimation, forKey: favoriteKey)
+        megaphoneShape.addAnimation(rotateAnimation, forKey: favoriteKey)
         
         
         let fillCircle = CABasicAnimation(keyPath: "opacity")
@@ -230,7 +222,6 @@ public class StarButton: UIButton {
         fillCircleAnimation.fillMode =  kCAFillModeForwards
         fillCircleAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
         
-        //fillRingShape.addAnimation(fillCircleAnimation, forKey: "fill circle Animation") //
         
         let favFill = CABasicAnimation(keyPath: "transform.scale")
         favFill.fromValue = 0.8
@@ -240,9 +231,6 @@ public class StarButton: UIButton {
         favFill.fillMode = kCAFillModeForwards
         
         fillRingShape.addAnimation(favFill, forKey: favoriteKey)
-        
-        //fillRingShape.addAnimation(fillCircle, forKey: nil) //
-        //fillRingShape.opacity = 1 //
         
         let outerCircle = CABasicAnimation(keyPath: "opacity")
         outerCircle.toValue = 0.5
@@ -278,25 +266,15 @@ public class StarButton: UIButton {
         
     }
     
-    private func favorite(){
+    private func activate(){
         println("FAV Func")
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
+        
         var starGoUp = CATransform3DIdentity
         starGoUp = CATransform3DScale(starGoUp, 0.01, 0.01, 0.01)
         var starGoDown = CATransform3DIdentity
         starGoDown = CATransform3DScale(starGoDown, 0.01, 0.01, 0.01)
-        
-        /*let starKeyFrames = CAKeyframeAnimation(keyPath: "transform")
-        starKeyFrames.values = [NSValue(CATransform3D:CATransform3DIdentity),NSValue(CATransform3D:starGoUp),NSValue(CATransform3D:starGoDown)]
-        starKeyFrames.keyTimes = [0.0,0.4,0.4]
-        starKeyFrames.duration = 0.4
-        starKeyFrames.beginTime = CACurrentMediaTime() + 0.05
-        starKeyFrames.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-        starKeyFrames.fillMode =  kCAFillModeBackwards
-        starKeyFrames.setValue(favoriteKey, forKey: starKey)
-        starKeyFrames.delegate = self
-        
-        starShape.addAnimation(starKeyFrames, forKey: favoriteKey)
-        starShape.transform = starGoDown*/
         
         var grayGoUp = CATransform3DIdentity
         grayGoUp = CATransform3DScale(grayGoUp, 1.5, 1.5, 1.5)
@@ -344,7 +322,7 @@ public class StarButton: UIButton {
         rotateAnimation.removedOnCompletion = false
         rotateAnimation.fillMode =  kCAFillModeForwards
         
-        starShape.addAnimation(rotateAnimation, forKey: favoriteKey)
+        megaphoneShape.addAnimation(rotateAnimation, forKey: favoriteKey)
         
         
         let favoriteFillOpacity = CABasicAnimation(keyPath: "opacity")
@@ -358,17 +336,11 @@ public class StarButton: UIButton {
         //fillRingShape.addAnimation(fillCircleAnimation, forKey: "fill circle Animation")
         fillRingShape.transform = CATransform3DIdentity
         
-        
-        
-        
-        
-        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
-        
     }
     
     func update() {
         
-        if(isFavorite){
+        if(isActive){
             // We want to animate the strokeEnd property of the circleLayer
             let animation = CABasicAnimation(keyPath: "strokeEnd")
             
@@ -402,78 +374,4 @@ public class StarButton: UIButton {
         
     }
     
-    override public func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
-        println("didstop")
-        if let key = anim.valueForKey(starKey) as? String {
-            switch(key) {
-            case (favoriteKey):
-                endFavorite()
-            case (notFavoriteKey):
-                prepareForFavorite()
-            default:
-                break
-            }
-        }
-        enableTouch()
-    }
-    
-    private func endFavorite() {
-        
-        println("endFavorite")
-        
-        executeWithoutActions {
-            self.starShape.fillColor = self.starFavoriteColor.CGColor
-            self.starShape.opacity = 1
-            self.fillRingShape.opacity = 1
-            self.fillRingShape.transform = CATransform3DMakeScale(0.8, 0.8, 0.8)
-            self.outerRingShape.transform = CATransform3DIdentity
-            //self.starShape.
-            self.outerRingShape.opacity = 0
-            self.starShape.transform = CATransform3DIdentity
-        }
-        
-        let starAnimations = CAAnimationGroup()
-        var starGoUp = CATransform3DIdentity
-        starGoUp = CATransform3DScale(starGoUp, 1, 1, 1)
-        
-        let starKeyFrames = CAKeyframeAnimation(keyPath: "transform")
-        starKeyFrames.values = [NSValue(CATransform3D: starShape.transform),NSValue(CATransform3D:starGoUp),NSValue(CATransform3D:CATransform3DIdentity)]
-        starKeyFrames.keyTimes = [0.0,0.0,0.0]
-        starKeyFrames.duration = 0.0
-        starKeyFrames.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-        
-        starShape.addAnimation(starKeyFrames, forKey: nil)
-        starShape.transform = CATransform3DIdentity
-        
-    }
-    
-    private func prepareForFavorite() {
-        
-        println("prepareForFavorite")
-        
-        executeWithoutActions {
-            self.fillRingShape.opacity = 1
-            self.fillRingShape.transform = CATransform3DMakeScale(1, 1, 1)
-        }
-    }
-    
-    private func executeWithoutActions(closure: () -> ()) {
-        
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        closure()
-        CATransaction.commit()
-    }
-    
-    override public func animationDidStart(anim: CAAnimation!) {
-        disableTouch()
-    }
-    
-    private func disableTouch() {
-        self.userInteractionEnabled = false
-    }
-    
-    private func enableTouch() {
-        self.userInteractionEnabled = true
-    }
 }
