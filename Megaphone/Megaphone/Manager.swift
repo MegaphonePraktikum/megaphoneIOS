@@ -17,7 +17,7 @@ protocol SessionDelegate {
 
 class Manager : NSObject {
     
-    private let maxPeers : Int = 3
+    private let maxPeers : Int = 1
     
     private let ServiceType = "megaphone"
     private let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
@@ -324,6 +324,7 @@ class Manager : NSObject {
 
         }
         let data : NSMutableDictionary = peers[sessionName] as! NSMutableDictionary
+        self.sessionName = sessionName as String
         self.parentPeer = data["peerID"] as! MCPeerID
         self.parentSession = data["session"] as! MCSession
         if(parentSession.connectedPeers.count >= maxPeers){
