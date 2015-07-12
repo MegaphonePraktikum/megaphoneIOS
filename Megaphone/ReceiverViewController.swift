@@ -87,16 +87,9 @@ class ReceiverViewController: UIViewController {
 extension ReceiverViewController : ManagerDelegate, AVAudioPlayerDelegate {
     
     func connectedDevicesChanged(manager: Manager, connectedDevices: [String]) {
-        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
-            self.connectionsLabel.text = "Connections: \(connectedDevices)"
-        }
     }
     
     func pingChanged(manager: Manager, connectedDevices: [String]) {
-        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
-            self.connectionsLabel.text = "Connections: \(connectedDevices)"
-        }
-        NSLog("%@", "pingChanged")
     }
     
     func playFile(manager: Manager, data: NSData, delayMS : Double ) {
@@ -109,10 +102,6 @@ extension ReceiverViewController : ManagerDelegate, AVAudioPlayerDelegate {
     }
     
     func countChanged(manager: Manager, count: Int) {
-        NSLog("%@", "trySetCounter: \(count)")
-        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
-            self.countLabel.text = "\(count)"
-        }
         
     }
     

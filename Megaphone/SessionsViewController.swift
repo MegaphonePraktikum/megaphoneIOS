@@ -7,6 +7,7 @@ import MultipeerConnectivity
 
 class SessionsViewController : UITableViewController {
     
+    var first : Bool = true
     var megaphoneService = AppDelegate.megaphoneService
     
     override func viewDidLoad() {
@@ -14,11 +15,14 @@ class SessionsViewController : UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        data.removeAllObjects()
+        data = NSMutableArray()
         self.tableView.reloadData()
-        AppDelegate.megaphoneService = Manager()
-        megaphoneService = AppDelegate.megaphoneService
-        megaphoneService.delegateSession = self
+        if(!first){
+            AppDelegate.megaphoneService = Manager()
+            megaphoneService = AppDelegate.megaphoneService
+            megaphoneService.delegateSession = self
+        }
+        first = false;
     }
     
     var data : NSMutableArray = NSMutableArray()
