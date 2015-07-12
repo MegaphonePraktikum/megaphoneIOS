@@ -224,7 +224,7 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
     }
     
     func lostConnection() {
-        var alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertControllerStyle.Alert)
+        var alert = UIAlertController(title: "Alert", message: "Lost connection...", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { action in
             navigationController?.popViewControllerAnimated(true)
         }))
