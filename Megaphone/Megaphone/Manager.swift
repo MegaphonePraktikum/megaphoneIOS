@@ -17,7 +17,7 @@ protocol SessionDelegate {
 
 class Manager : NSObject {
     
-    private let maxPeers : Int = 1
+    private let maxPeers : Int = 3
     
     private let ServiceType = "megaphone"
     private let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
@@ -326,6 +326,11 @@ class Manager : NSObject {
         let data : NSMutableDictionary = peers[sessionName] as! NSMutableDictionary
         self.parentPeer = data["peerID"] as! MCPeerID
         self.parentSession = data["session"] as! MCSession
+        if(parentSession.connectedPeers.count >= maxPeers){
+            serviceBrowser.stopBrowsingForPeers()
+        }else{
+            serviceBrowser.startBrowsingForPeers()
+        }
         
         
         for p in peers {
@@ -606,7 +611,7 @@ extension Manager : MCSessionDelegate {
         NSLog("%@", "didStartReceivingResourceWithName")
     }
     
-    func session(_ session: MCSession!, didReceiveCertificate certificate: [AnyObject]!, romPeer peerID: MCPeerID!, certificateHandler certificateHandler: ((Bool) -> Void)!) {
+    func session(session: MCSession!, didReceiveCertificate certificate: [AnyObject]!, romPeer peerID: MCPeerID!, certificateHandler certificateHandler: ((Bool) -> Void)!) {
         certificateHandler(true)
     }
     
