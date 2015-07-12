@@ -115,6 +115,45 @@ struct Paths {
         return bezierPath.CGPath
     }
     
+    static var play: CGPath {
+        
+        var shapePath = UIBezierPath()
+        shapePath.moveToPoint(CGPointMake(101.63, 40.09))
+        shapePath.addCurveToPoint(CGPointMake(70.85, 27.35), controlPoint1: CGPointMake(93.41, 31.87), controlPoint2: CGPointMake(82.48, 27.35))
+        shapePath.addCurveToPoint(CGPointMake(40.08, 40.09), controlPoint1: CGPointMake(59.23, 27.35), controlPoint2: CGPointMake(48.3, 31.87))
+        shapePath.addCurveToPoint(CGPointMake(40.08, 101.64), controlPoint1: CGPointMake(23.11, 57.06), controlPoint2: CGPointMake(23.12, 84.67))
+        shapePath.addCurveToPoint(CGPointMake(70.86, 114.39), controlPoint1: CGPointMake(48.3, 109.86), controlPoint2: CGPointMake(59.23, 114.39))
+        shapePath.addCurveToPoint(CGPointMake(101.63, 101.64), controlPoint1: CGPointMake(82.48, 114.39), controlPoint2: CGPointMake(93.41, 109.86))
+        shapePath.addCurveToPoint(CGPointMake(114.38, 70.87), controlPoint1: CGPointMake(109.85, 93.42), controlPoint2: CGPointMake(114.38, 82.49))
+        shapePath.addCurveToPoint(CGPointMake(101.63, 40.09), controlPoint1: CGPointMake(114.38, 59.24), controlPoint2: CGPointMake(109.85, 48.31))
+        shapePath.closePath()
+        shapePath.moveToPoint(CGPointMake(100.21, 100.23))
+        shapePath.addCurveToPoint(CGPointMake(70.86, 112.39), controlPoint1: CGPointMake(92.37, 108.07), controlPoint2: CGPointMake(81.95, 112.39))
+        shapePath.addCurveToPoint(CGPointMake(41.5, 100.22), controlPoint1: CGPointMake(59.77, 112.39), controlPoint2: CGPointMake(49.34, 108.07))
+        shapePath.addCurveToPoint(CGPointMake(41.5, 41.51), controlPoint1: CGPointMake(25.31, 84.04), controlPoint2: CGPointMake(25.31, 57.7))
+        shapePath.addCurveToPoint(CGPointMake(70.85, 29.35), controlPoint1: CGPointMake(49.34, 33.66), controlPoint2: CGPointMake(59.77, 29.35))
+        shapePath.addCurveToPoint(CGPointMake(100.21, 41.51), controlPoint1: CGPointMake(81.95, 29.35), controlPoint2: CGPointMake(92.37, 33.66))
+        shapePath.addCurveToPoint(CGPointMake(112.38, 70.87), controlPoint1: CGPointMake(108.06, 49.35), controlPoint2: CGPointMake(112.38, 59.78))
+        shapePath.addCurveToPoint(CGPointMake(100.21, 100.23), controlPoint1: CGPointMake(112.38, 81.96), controlPoint2: CGPointMake(108.06, 92.38))
+        shapePath.closePath()
+        
+        shapePath.moveToPoint(CGPointMake(65.89, 55.98))
+        shapePath.addCurveToPoint(CGPointMake(64.48, 55.98), controlPoint1: CGPointMake(65.5, 55.59), controlPoint2: CGPointMake(64.87, 55.59))
+        shapePath.addCurveToPoint(CGPointMake(64.48, 57.4), controlPoint1: CGPointMake(64.09, 56.37), controlPoint2: CGPointMake(64.09, 57.01))
+        shapePath.addLineToPoint(CGPointMake(77.95, 70.86))
+        shapePath.addLineToPoint(CGPointMake(64.48, 84.33))
+        shapePath.addCurveToPoint(CGPointMake(64.48, 85.75), controlPoint1: CGPointMake(64.09, 84.72), controlPoint2: CGPointMake(64.09, 85.35))
+        shapePath.addCurveToPoint(CGPointMake(65.19, 86.04), controlPoint1: CGPointMake(64.67, 85.94), controlPoint2: CGPointMake(64.93, 86.04))
+        shapePath.addCurveToPoint(CGPointMake(65.89, 85.75), controlPoint1: CGPointMake(65.44, 86.04), controlPoint2: CGPointMake(65.7, 85.94))
+        shapePath.addLineToPoint(CGPointMake(80.07, 71.57))
+        shapePath.addCurveToPoint(CGPointMake(80.07, 70.16), controlPoint1: CGPointMake(80.46, 71.18), controlPoint2: CGPointMake(80.46, 70.55))
+        shapePath.addLineToPoint(CGPointMake(65.89, 55.98))
+        shapePath.closePath()
+        
+        return shapePath.CGPath
+
+    }
+    
     static var sound: CGPath {
         var bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(137.7, 97.7))
