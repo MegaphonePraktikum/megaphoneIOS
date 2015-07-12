@@ -28,6 +28,7 @@
 		9C82A23F1B52C96100D43FD0 /* mg_bg2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9C82A23E1B52C96100D43FD0 /* mg_bg2.jpg */; };
 		9C82A2431B52D5C900D43FD0 /* ios_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C82A2421B52D5C900D43FD0 /* ios_icon.png */; };
 		9C82A2491B52E21F00D43FD0 /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82A2481B52E21F00D43FD0 /* PlayButton.swift */; };
+		9C82A24B1B52F0CE00D43FD0 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82A24A1B52F0CE00D43FD0 /* Invite.swift */; };
 		9C8F958C1B441A5E00FAD06A /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9C8F958B1B441A5E00FAD06A /* bg.jpg */; };
 		9C8F958E1B442C2100FAD06A /* bg2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9C8F958D1B442C2100FAD06A /* bg2.jpg */; };
 		9C8F95901B442DB900FAD06A /* bg3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9C8F958F1B442DB900FAD06A /* bg3.jpg */; };
@@ -75,6 +76,7 @@
 		9C82A23E1B52C96100D43FD0 /* mg_bg2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mg_bg2.jpg; sourceTree = "<group>"; };
 		9C82A2421B52D5C900D43FD0 /* ios_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ios_icon.png; sourceTree = "<group>"; };
 		9C82A2481B52E21F00D43FD0 /* PlayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
+		9C82A24A1B52F0CE00D43FD0 /* Invite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
 		9C8F958B1B441A5E00FAD06A /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
 		9C8F958D1B442C2100FAD06A /* bg2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg2.jpg; sourceTree = "<group>"; };
 		9C8F958F1B442DB900FAD06A /* bg3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg3.jpg; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 		BF52C0A01AEFE4700042F9E8 /* Megaphone */ = {
 			isa = PBXGroup;
 			children = (
+				9C82A24A1B52F0CE00D43FD0 /* Invite.swift */,
 				9C82A23A1B52C64000D43FD0 /* Images.xcassets */,
 				9C82A2421B52D5C900D43FD0 /* ios_icon.png */,
 				9C82A23E1B52C96100D43FD0 /* mg_bg2.jpg */,
@@ -325,6 +328,7 @@
 				BF52C0A41AEFE4700042F9E8 /* AppDelegate.swift in Sources */,
 				9C82A2491B52E21F00D43FD0 /* PlayButton.swift in Sources */,
 				BF52C0C61AEFEAEA0042F9E8 /* Manager.swift in Sources */,
+				9C82A24B1B52F0CE00D43FD0 /* Invite.swift in Sources */,
 				9CA5BA0B1B5299B900D1F438 /* ReceiverViewController.swift in Sources */,
 				840D26F11B441611005203FC /* Message.swift in Sources */,
 				9CA5BA071B5296E500D1F438 /* MegaphoneButton.swift in Sources */,
