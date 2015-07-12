@@ -7,9 +7,17 @@ import MultipeerConnectivity
 
 class SessionsViewController : UITableViewController {
     
-    let megaphoneService = AppDelegate.megaphoneService
+    var megaphoneService = AppDelegate.megaphoneService
     
     override func viewDidLoad() {
+        megaphoneService.delegateSession = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        data.removeAllObjects()
+        self.tableView.reloadData()
+        AppDelegate.megaphoneService = Manager()
+        megaphoneService = AppDelegate.megaphoneService
         megaphoneService.delegateSession = self
     }
     

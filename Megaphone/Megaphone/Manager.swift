@@ -9,6 +9,7 @@ protocol ManagerDelegate {
     func pingChanged(manager : Manager, connectedDevices: [String])
     func playFile(manager : Manager, data: NSData, delayMS : Double)
     func countChanged(manager : Manager, count: Int)
+    func lostConnection()
 }
 
 protocol SessionDelegate {
@@ -489,6 +490,7 @@ extension Manager : MCSessionDelegate {
                 serviceBrowser.stopBrowsingForPeers()
                 parentSession.disconnect()
                 self.session.disconnect()
+                self.delegate?.lostConnection()
             }else{
                 if(session == self.session){
                     if(session.connectedPeers.count < maxPeers && parentSession.connectedPeers.count >= maxPeers){

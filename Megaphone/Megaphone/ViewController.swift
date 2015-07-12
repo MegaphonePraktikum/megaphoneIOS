@@ -187,6 +187,8 @@ class ViewController: UIViewController {
     }
     
     
+    
+    
 }
 
 extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
@@ -219,6 +221,14 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
             self.countLabel.text = "\(count)"
         }
         
+    }
+    
+    func lostConnection() {
+        var alert = UIAlertController(title: "Alert", message: "Lost connection...", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { action in
+            navigationController?.popViewControllerAnimated(true)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     
