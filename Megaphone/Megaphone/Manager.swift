@@ -328,9 +328,9 @@ class Manager : NSObject {
         self.parentPeer = data["peerID"] as! MCPeerID
         self.parentSession = data["session"] as! MCSession
         if(parentSession.connectedPeers.count >= maxPeers){
-            serviceBrowser.stopBrowsingForPeers()
-        }else{
             serviceBrowser.startBrowsingForPeers()
+        }else{
+            serviceBrowser.stopBrowsingForPeers()
         }
         
         
