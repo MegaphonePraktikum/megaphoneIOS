@@ -16,6 +16,7 @@ class SessionsViewController : UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         data = NSMutableArray()
+        NSLog("%@", "resetData: \(data.count)")
         self.tableView.reloadData()
         if(!first){
             AppDelegate.megaphoneService = Manager()
@@ -30,12 +31,14 @@ class SessionsViewController : UITableViewController {
     // MARK: - UITableViewDataSource
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        NSLog("%@", "dataCount: \(data.count)")
         return data.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ListPrototypeCell", forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel?.text = data[indexPath.row] as! String
+        NSLog("%@", "setCellLabel: \(data.count)")
         return cell
     }
     
