@@ -170,10 +170,10 @@ class ViewController: UIViewController {
             name:UIApplicationWillEnterForegroundNotification,
             object:nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        /*NSNotificationCenter.defaultCenter().addObserver(self,
             selector:"routeChange:",
             name:AVAudioSessionRouteChangeNotification,
-            object:nil)
+            object:nil)*/
     }
 
 
