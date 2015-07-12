@@ -25,6 +25,8 @@ class ViewController: UIViewController {
 
     @IBOutlet var bgV: UIImageView!
     
+    @IBOutlet var sessionNameLabel: UILabel!
+    
     let screenSize: CGRect = UIScreen.mainScreen().bounds
 
     var recTimer : NSTimer!
@@ -32,6 +34,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         megaphoneService.delegate = self
+        
+        sessionNameLabel.text = megaphoneService.getSessionName() as String
+        
         Recorder.setSessionPlayback()
         askForNotifications()
         
@@ -89,6 +94,8 @@ class ViewController: UIViewController {
     
     
 }
+
+
 
 extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
@@ -174,7 +181,7 @@ extension ViewController : ManagerDelegate, AVAudioRecorderDelegate, AVAudioPlay
     
     func stopRecord(sender: MegaphoneButton) {
         sender.isActive = false
-        instructionLabel.text = "Message is pending..."
+        instructionLabel.text = "Hold down to record"
         
         recorder?.stop()
         player?.stop()

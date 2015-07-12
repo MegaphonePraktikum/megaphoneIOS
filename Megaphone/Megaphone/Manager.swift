@@ -14,6 +14,7 @@ protocol SessionDelegate {
     func addSession(sessionName : NSString)
 }
 
+
 class Manager : NSObject {
     
     private let maxPeers : Int = 3
@@ -99,6 +100,10 @@ class Manager : NSObject {
         session?.delegate = self
         return session
     }()
+    
+    func getSessionName() -> NSString {
+        return sessionName
+    }
     
     func startBrowser(sessionNameLabel : String){
         self.sessionName = sessionNameLabel
@@ -335,6 +340,7 @@ class Manager : NSObject {
                 return false;
             }*/
         }
+        
         return true;
     }
     

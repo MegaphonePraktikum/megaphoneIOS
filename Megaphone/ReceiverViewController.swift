@@ -33,6 +33,7 @@ class ReceiverViewController: UIViewController {
     
     @IBOutlet var countLabel: UILabel!
     
+    @IBOutlet var sessionNameLabel: UILabel!
     var bgImage : UIView?
     
     @IBOutlet var bgV: UIImageView!
@@ -45,6 +46,7 @@ class ReceiverViewController: UIViewController {
         super.viewDidLoad()
         
         megaphoneService.delegate = self
+        sessionNameLabel.text = megaphoneService.getSessionName() as String
 
         
     }
@@ -84,6 +86,17 @@ class ReceiverViewController: UIViewController {
     
 }
 
+extension ReceiverViewController : SessionDelegate {
+    func addSession(sessionName : NSString) {
+        NSLog("%@", "ReceiverViewController addSession")
+        sessionNameLabel.text = sessionName as String
+        
+    }
+    
+    
+}
+
+
 extension ReceiverViewController : ManagerDelegate, AVAudioPlayerDelegate {
     
     func connectedDevicesChanged(manager: Manager, connectedDevices: [String]) {
@@ -106,7 +119,7 @@ extension ReceiverViewController : ManagerDelegate, AVAudioPlayerDelegate {
     }
     
     func lostConnection() {
-        var alert = UIAlertController(title: "Alert", message: "Lost connection...", preferredStyle: UIAlertControllerStyle.Alert)
+        var alert = UIAlertController(title: "Lost connection", message: "Reconnect with a megaphone session", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { action in
             navigationController?.popViewControllerAnimated(true)
         }))
