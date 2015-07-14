@@ -42,11 +42,19 @@ class ViewController: UIViewController {
         
         recButton.addTarget(self, action: "startRecord:", forControlEvents: UIControlEvents.TouchDown)
         
-        recButton.addTarget(self, action: "stopRecord:", forControlEvents: UIControlEvents.TouchUpInside|UIControlEvents.TouchUpOutside)    
+        recButton.addTarget(self, action: "stopRecord:", forControlEvents: UIControlEvents.TouchUpInside|UIControlEvents.TouchUpOutside)
+        
+        self.navigationItem.hidesBackButton = true
+        let newBackButton = UIBarButtonItem(title: "< Back", style: UIBarButtonItemStyle.Bordered, target: self, action: "back:")
+        self.navigationItem.leftBarButtonItem = newBackButton;
 
     }
     
     override func viewWillDisappear(animated: Bool) {
+        //navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
+    func back(sender: UIBarButtonItem) {
         navigationController?.popToRootViewControllerAnimated(true)
     }
 

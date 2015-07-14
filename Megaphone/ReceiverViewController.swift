@@ -127,6 +127,7 @@ extension ReceiverViewController : ManagerDelegate, AVAudioPlayerDelegate {
             alert.title = "Lost connection"
             alert.message = "Reconnect with a megaphone session"
             alert.addButtonWithTitle("OK")
+            alert.delegate = self
             alert.show()
         }else{
             var alert = UIAlertController(title: "Lost connection", message: "Reconnect with a megaphone session", preferredStyle: UIAlertControllerStyle.Alert)
@@ -151,5 +152,13 @@ extension ReceiverViewController : ManagerDelegate, AVAudioPlayerDelegate {
     }
     
 
+    
+}
+
+extension ReceiverViewController : UIAlertViewDelegate {
+    
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        navigationController?.popViewControllerAnimated(true)
+    }
     
 }
