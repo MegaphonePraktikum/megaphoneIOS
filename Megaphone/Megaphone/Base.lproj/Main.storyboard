@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="mg_bg2" translatesAutoresizingMaskIntoConstraints="NO" id="rfY-mg-v4r">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="mg_bg2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="rfY-mg-v4r">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sdy-fL-N12"/>
@@ -298,7 +298,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="mg_bg2" translatesAutoresizingMaskIntoConstraints="NO" id="w61-Vj-2XO">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="mg_bg2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="w61-Vj-2XO">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="576"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3TX-Kb-a6E"/>
@@ -377,6 +377,6 @@
     </scenes>
     <resources>
         <image name="ios_icon.png" width="76" height="128"/>
-        <image name="mg_bg2" width="600" height="1136"/>
+        <image name="mg_bg2.jpg" width="600" height="1136"/>
     </resources>
 </document>
