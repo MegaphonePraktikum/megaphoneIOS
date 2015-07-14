@@ -15,6 +15,8 @@
 		844670EE1B4FE273007F79F4 /* SessionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844670ED1B4FE273007F79F4 /* SessionsViewController.swift */; };
 		844670F01B4FE296007F79F4 /* AddSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844670EF1B4FE296007F79F4 /* AddSessionViewController.swift */; };
 		9C08CDDF1B4C80400061E12C /* 1436323562_device_smart-phones_iphones_horizontal_.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C08CDDE1B4C80400061E12C /* 1436323562_device_smart-phones_iphones_horizontal_.png */; };
+		9C21A1C31B55398700F829C7 /* mg_bg1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9C21A1C21B55398700F829C7 /* mg_bg1.jpg */; };
+		9C21A1C51B553A2D00F829C7 /* mg_bg2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9C21A1C41B553A2D00F829C7 /* mg_bg2.jpg */; };
 		9C284D901B44041500C5706E /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8D1B44041500C5706E /* Paths.swift */; };
 		9C284D911B44041500C5706E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C284D8E1B44041500C5706E /* Extensions.swift */; };
 		9C82A23B1B52C64000D43FD0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C82A23A1B52C64000D43FD0 /* Images.xcassets */; };
@@ -56,6 +58,8 @@
 		844670ED1B4FE273007F79F4 /* SessionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionsViewController.swift; path = ../SessionsViewController.swift; sourceTree = "<group>"; };
 		844670EF1B4FE296007F79F4 /* AddSessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSessionViewController.swift; sourceTree = "<group>"; };
 		9C08CDDE1B4C80400061E12C /* 1436323562_device_smart-phones_iphones_horizontal_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1436323562_device_smart-phones_iphones_horizontal_.png"; sourceTree = "<group>"; };
+		9C21A1C21B55398700F829C7 /* mg_bg1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = mg_bg1.jpg; path = Images.xcassets/mg_bg1.imageset/mg_bg1.jpg; sourceTree = "<group>"; };
+		9C21A1C41B553A2D00F829C7 /* mg_bg2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = mg_bg2.jpg; path = Images.xcassets/mg_bg2.imageset/mg_bg2.jpg; sourceTree = "<group>"; };
 		9C284D8D1B44041500C5706E /* Paths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
 		9C284D8E1B44041500C5706E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9C82A23A1B52C64000D43FD0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -147,6 +151,8 @@
 		BF52C0A11AEFE4700042F9E8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9C21A1C41B553A2D00F829C7 /* mg_bg2.jpg */,
+				9C21A1C21B55398700F829C7 /* mg_bg1.jpg */,
 				9C82A2521B5314DC00D43FD0 /* icon120.png */,
 				9C82A2501B5313BB00D43FD0 /* app_icon.png */,
 				9C82A2421B52D5C900D43FD0 /* ios_icon.png */,
@@ -262,12 +268,14 @@
 			files = (
 				9C8F958E1B442C2100FAD06A /* bg2.jpg in Resources */,
 				9C8F95901B442DB900FAD06A /* bg3.jpg in Resources */,
+				9C21A1C31B55398700F829C7 /* mg_bg1.jpg in Resources */,
 				844670E51B4D8BA0007F79F4 /* 222.wav in Resources */,
 				9C82A2431B52D5C900D43FD0 /* ios_icon.png in Resources */,
 				BF52C0A91AEFE4700042F9E8 /* Main.storyboard in Resources */,
 				9C82A2511B5313BB00D43FD0 /* app_icon.png in Resources */,
 				844670E81B4D8BA0007F79F4 /* 111.wav in Resources */,
 				9C82A2531B5314DC00D43FD0 /* icon120.png in Resources */,
+				9C21A1C51B553A2D00F829C7 /* mg_bg2.jpg in Resources */,
 				9C82A23B1B52C64000D43FD0 /* Images.xcassets in Resources */,
 				BF52C0AE1AEFE4700042F9E8 /* LaunchScreen.xib in Resources */,
 				9C08CDDF1B4C80400061E12C /* 1436323562_device_smart-phones_iphones_horizontal_.png in Resources */,
