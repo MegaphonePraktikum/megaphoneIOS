@@ -119,11 +119,22 @@ extension ReceiverViewController : ManagerDelegate, AVAudioPlayerDelegate {
     }
     
     func lostConnection() {
-        var alert = UIAlertController(title: "Lost connection", message: "Reconnect with a megaphone session", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { action in
-            navigationController?.popViewControllerAnimated(true)
-        }))
-        self.presentViewController(alert, animated: true, completion: nil)
+        var device : UIDevice = UIDevice.currentDevice()
+        var systemVersion : NSString = device.systemVersion
+        var iosVerion : Float = systemVersion.floatValue
+        if(iosVerion < 8.0) {
+            let alert = UIAlertView()
+            alert.title = "Lost connection"
+            alert.message = "Reconnect with a megaphone session"
+            alert.addButtonWithTitle("OK")
+            alert.show()
+        }else{
+            var alert = UIAlertController(title: "Lost connection", message: "Reconnect with a megaphone session", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { action in
+                navigationController?.popViewControllerAnimated(true)
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
 
