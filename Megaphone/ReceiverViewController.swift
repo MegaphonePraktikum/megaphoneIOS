@@ -3,6 +3,7 @@
 
 import UIKit
 import AVFoundation
+import MultipeerConnectivity
 
 class ReceiverViewController: UIViewController {
     
@@ -46,6 +47,7 @@ class ReceiverViewController: UIViewController {
         super.viewDidLoad()
         
         megaphoneService.delegate = self
+        megaphoneService.delegateLostConnection = self
         sessionNameLabel.text = megaphoneService.getSessionName() as String
 
         
@@ -86,15 +88,15 @@ class ReceiverViewController: UIViewController {
     
 }
 
-extension ReceiverViewController : SessionDelegate {
-    func addSession(sessionName : NSString) {
+/*extension ReceiverViewController : SessionDelegate {
+    func addSession(sessionName : NSString, peerID : MCPeerID) {
         NSLog("%@", "ReceiverViewController addSession")
         sessionNameLabel.text = sessionName as String
         
     }
     
     
-}
+}*/
 
 
 extension ReceiverViewController : ManagerDelegate, AVAudioPlayerDelegate {
@@ -118,7 +120,23 @@ extension ReceiverViewController : ManagerDelegate, AVAudioPlayerDelegate {
         
     }
     
-    func lostConnection() {
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+        println("finished playing \(flag)")
+        recordButton.enabled = true
+        stopButton.enabled = false
+    }
+    
+    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
+        println("\(error.localizedDescription)")
+    }
+    
+
+    
+}
+
+extension ReceiverViewController : LostConnectionDelegate, UIAlertViewDelegate {
+    
+    func lostConnection(peerID : MCPeerID) {
         var device : UIDevice = UIDevice.currentDevice()
         var systemVersion : NSString = device.systemVersion
         var iosVerion : Float = systemVersion.floatValue
@@ -137,25 +155,6 @@ extension ReceiverViewController : ManagerDelegate, AVAudioPlayerDelegate {
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
-    
-
-    
-    
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
-        println("finished playing \(flag)")
-        recordButton.enabled = true
-        stopButton.enabled = false
-    }
-    
-    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
-        println("\(error.localizedDescription)")
-    }
-    
-
-    
-}
-
-extension ReceiverViewController : UIAlertViewDelegate {
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
         navigationController?.popViewControllerAnimated(true)

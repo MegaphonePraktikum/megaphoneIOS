@@ -9,13 +9,19 @@ class SessionsViewController : UITableViewController {
     
     var first : Bool = true
     var megaphoneService = AppDelegate.megaphoneService
+    var data : [String] = []
+    var connections : NSMutableDictionary = NSMutableDictionary()
+
     
     override func viewDidLoad() {
         megaphoneService.delegateSession = self
+        megaphoneService.delegateLostConnection = self
     }
     
     override func viewWillAppear(animated: Bool) {
-        data = NSMutableArray()
+        //data = NSMutableArray()
+        data = []
+        connections = NSMutableDictionary()
         NSLog("%@", "resetData: \(data.count)")
         self.tableView.reloadData()
         if(!first){
@@ -24,7 +30,6 @@ class SessionsViewController : UITableViewController {
         first = false;
     }
     
-    var data : NSMutableArray = NSMutableArray()
     
     // MARK: - UITableViewDataSource
     
@@ -50,13 +55,24 @@ class SessionsViewController : UITableViewController {
     
 }
 
-extension SessionsViewController : SessionDelegate {
-    func addSession(sessionName : NSString) {
+extension SessionsViewController : SessionDelegate, LostConnectionDelegate {
+    
+    func addSession(sessionName : NSString, peerID : MCPeerID) {
         NSLog("%@", "sessionViewController addSession")
-        data.addObject(sessionName)
+        data.append(sessionName as String)
+        connections[peerID] = sessionName as String
+        //data.addObject(sessionName)
         self.tableView.reloadData()
 
     }
     
-    
+    func lostConnection(peerID : MCPeerID) {
+        println("lostConnection")
+        if let sessionName : String = connections[peerID] as? String {
+            data = data.filter(){ $0 != sessionName }
+            connections.removeObjectForKey(peerID)
+            //myArrayOfStrings = myArrayOfStrings.filter() { $0 != "Hello" }
+            self.tableView.reloadData()
+        }
+    }
 }

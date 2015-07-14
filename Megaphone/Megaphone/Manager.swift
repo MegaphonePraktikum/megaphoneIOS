@@ -7,11 +7,15 @@ import MultipeerConnectivity
 protocol ManagerDelegate {
     func playFile(manager : Manager, data: NSData, delayMS : Double)
     func countChanged(manager : Manager, count: Int)
-    func lostConnection()
+    //func lostConnection()
 }
 
 protocol SessionDelegate {
-    func addSession(sessionName : NSString)
+    func addSession(sessionName : NSString, peerID : MCPeerID)
+}
+
+protocol LostConnectionDelegate {
+    func lostConnection(peerID : MCPeerID)
 }
 
 
@@ -38,6 +42,7 @@ class Manager : NSObject {
     
     var delegate : ManagerDelegate?
     var delegateSession : SessionDelegate?
+    var delegateLostConnection : LostConnectionDelegate?
     
     override init() {
         NSLog("%@", "Manager init()")
@@ -380,17 +385,6 @@ class Manager : NSObject {
         }
         peers.removeAllObjects()
 
-        /*let data: NSMutableDictionary = peers[sessionName] as! NSMutableDictionary
-        self.parentPeer = data["peerID"] as! MCPeerID
-        //let ih : ((Bool, MCSession!) -> Void)! = data["invitationHandler"] as! ((Bool, MCSession!) -> Void)!
-        //ih!(true, self.parentSession)
-        if(self.parentSession.connectedPeers.count > maxPeers){
-            NSLog("%@", "tryDisconnectBecauseMax")
-            self.parentSession.disconnect()
-        }else{
-            NSLog("%@", "stopAdvertising")
-            self.serviceAdvertiser.stopAdvertisingPeer()
-        }*/
     }
 }
 
@@ -427,7 +421,7 @@ extension Manager : MCNearbyServiceAdvertiserDelegate {
             invitationHandler(true, s)
             
             
-            self.delegateSession?.addSession(invite.sessionName)
+            self.delegateSession?.addSession(invite.sessionName, peerID: peerID)
         }
 
 
@@ -519,9 +513,10 @@ extension Manager : MCSessionDelegate {
                 serviceBrowser.stopBrowsingForPeers()
                 parentSession.disconnect()
                 self.session.disconnect()
-                self.delegate?.lostConnection()
+                self.delegateLostConnection?.lostConnection(peerID)
             }else{
                 if(session == self.session){
+                    NSLog("%@", "isChildSession")
                     if(session.connectedPeers.count < maxPeers && parentSession.connectedPeers.count >= maxPeers && level < maxLevel){
                         serviceBrowser.startBrowsingForPeers()
                     }else{
@@ -535,6 +530,11 @@ extension Manager : MCSessionDelegate {
                             sendReceive()
                         }
                     }
+                }
+                else {
+                    NSLog("%@", "isSessionFromSessionList")
+                    
+                    self.delegateLostConnection?.lostConnection(peerID)
                 }
             }
 
